@@ -1,0 +1,388 @@
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="species"
+
+rhesus-monkey
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="receptorOrLocusType"
+
+IG
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="inputType"
+
+inline
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sequences"
+
+>IGHV1-AAU-U*01
+CAGGTCCAGCTGGTGCAGTCCGGGGCTGAGGTGAAGAAGCCTGGGGCCTCAGTGAAGGTT
+TCCTGCAAGGCTTCTGGATTCACCTTCGGCAGCTATGCTATCAGCTGGGTGCGACAGGCC
+CCTGGACAAGGGCTTGAGTGGATGGGAGTGATCATCCCTCTTGTTGGTATAACAAACTAC
+GCAGAGAAGTTCCAGGGCAGAGTCACGATTACCGCGGACACGTCCACAAGCACAGCCTAC
+ATGGAGCTGAGCAGCCTGAGATCTGAGGACACGGCCGTGTATTACTGTGCGAGAGG
+>IGHV1-AAU-U*02
+CAGGTCCAGCTGGTGCAGTCCGGGGCTGAGGTGAAGAAGCCTGGGGCCTCAGTGAAGCTC
+TCCTGCAAGGCTTCTGGATACACCTTCAGCATCTATGCCATCAGTTGGGTGCGACAGGCC
+CCTGGACAAGGGCTTGAGTGGATGGGAGGGATCATCCCTCTTGTTGGTATAACAAACTAC
+GCACAGAAGTTCCAGGGCAGAGTCACGATTACCGCGGACACGTCCACAAGCACAGCCTAC
+ATGGAGCTGAGCAGCCTGAGATCTGAGGACACGGCCGTGTATTACTGTGCGAG
+>IGHV1-AAU-U*03
+GAGGTCCAGCTGGTGCAGTCTGGGGCTGAGGTGAAGAAGCCTGGGGCCTCAGTGAAGGTC
+TCCTGCAAAGCTTCTGGATACATTTTCACCAGTTATGTTATCAGCTGGCTGCGACAGGCC
+CCTGGACAAGGGTTTGAGTGGATGGGAGGAATCCACCCTGGTTATGGTAGCACAAGCTAC
+GCACAGAAGTTCCAGGGCAGAGTCACGATTACCGCGGACATGTCCACGAGCACAGTCTAC
+ATGGAGCTGAGCAGTCTGAGATCTGAGGACATGGCCGTGTATTACTGTGCAGCAGA
+>IGHV1-ABW-S*01
+GAGGTCCAGCTGGTGCAGTCTGGGGCTGAGGTGAAGAAGCCTGGGGCCTCCGTGAAAATC
+TCCTGCAAGGCTTCTGGATACACCTTCACCGACCACTACCTGAACTGGGTGCGACAGGCT
+CCTGGAAAAGGGCTTGAGTGGATGGGAGGTGTTGATCCTGAAGATGGTGAAGCAGACTAC
+GCACAGAAGTTCCAGGACAGAGTCACCATCACCGCGGACATGTCTACAGACACAGCCTAC
+ATGGAGCTGAGCAGCCTGAGATCTGAGGACACGGCCGTGTATTACTGTGCAAGAGA
+>IGHV1-AEP*01
+CAGGTGCAGCTGGTGCAGTCTGGGGCTGAGATTAAGCAGCCTGGGGCCTCAGTGAAGCTC
+TCCTGCAAGGCTTCTGGATATACCTTCACTAGCTACTACATGCACTGGGTGAGACAGGCC
+CCTGGACAAGGCCTTGAGTGGATAGGACTGATCTCCCCTTACAATGGTAACAAAGGCTAC
+GCACAGAACTTCCAGGGCAGAGTCACCATAACTACGGACACGTCCACGAGCACAGGCTAC
+ATGGAGCTGAGCAGCCTGAGATCTGAGGACACAGCCGTGTATTACTGTACGAGAGA
+>IGHV1-AEP*02
+CAGGTGCAGCTGGTGCAGTCTGGGGGTGAGATTAAGCAGCCTGGGGCCTCAGTGAAGCTC
+TCCTGCAAGGCTTCTGGATATACCTTCACTAGCTACTACATGCACTGGGTGAGACAGGCC
+CCTGGACAAGGCCTTGAGTGGATAGGACTGATCTCCCCTTACAATGGTAACAAAGGCTAC
+GCACAGAACTTCCAGGGCAGAGTCACCATAACTACGGACACGTCCACGAGCACAGGCTAC
+ATGGAGCTGAGCAGCCTGAGATCTGAGGACACAGCCGTGTATTACTGTACGAGAGA
+>IGHV1-AFG-S*01
+CAGGTGCAGCTGGTGCAGTCTGGGGCTGAGGTGAAGAAGCCTGGATCCTCAGTGAAGGTC
+TCCTGCAAGGCTTCCGGATACACCTTCACTGACTACTACATGCACTGGGTGCGACAGGCC
+CCTGGACAAGGGCTTGAGTGGATGGGAGAAATCAACCCAAAAACTGGTGGCACAAACTAT
+GCACAGAAGTTCCAGGGCAGAGTCACCACGACCAGAGACACATCGACGAGCACAGCCTAC
+ATGGAGCTGAGCAGCCTGAGATCTGAGGACACGGCCGTGTATTACTGTGAGAGAGA
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="fileSequences"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="outputType"
+
+html
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nbNtPerLine"
+
+60
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_D_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_J_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_J_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_IMGTjctaResults"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_IMGTjctaResults"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_eligibleD_GENE"
+
+false
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_JUNCTIONseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_JUNCTIONseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_REGIONalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_REGIONalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_REGIONtranlation"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_REGIONtranlation"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_REGIONprotdisplay"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_REGIONprotdisplay"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_REGIONmuttable"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_REGIONmuttable"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_REGIONmutstats"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_REGIONmutstats"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_V_REGIONhotspots"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_V_REGIONhotspots"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_IMGTgappedVDJseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_IMGTgappedVDJseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_IMGTAutomat"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_dv_IMGTAutomat"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="dv_IMGTCollierdePerles"
+
+0
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_GENEalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_REGIONalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_REGIONalignment"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_REGIONtranslation"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_REGIONtranslation"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_REGIONprotdisplay"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_REGIONprotdisplay"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_REGIONprotdisplay2"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_REGIONprotdisplay2"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_REGIONprotdisplay3"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_REGIONprotdisplay3"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_V_REGIONfrequentAA"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_V_REGIONfrequentAA"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="sv_IMGTjctaResults"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_sv_IMGTjctaResults"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="resultType"
+
+excel
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_outputtype"
+
+3
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_summary"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_summary"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_IMGTgappedNt"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_IMGTgappedNt"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_ntseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_ntseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_IMGTgappedAA"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_IMGTgappedAA"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_AAseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_AAseq"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_JUNCTION"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_JUNCTION"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_V_REGIONmuttable"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_V_REGIONmuttable"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_V_REGIONmutstatsNt"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_V_REGIONmutstatsNt"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_V_REGIONmutstatsAA"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_V_REGIONmutstatsAA"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_V_REGIONhotspots"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_V_REGIONhotspots"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="xv_parameters"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_parameters"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="__checkbox_xv_scFv"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="IMGTrefdirSet"
+
+1
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="IMGTrefdirAlleles"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="V_REGIONsearchIndel"
+
+true
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nbD_GENE"
+
+-1
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nbVmut"
+
+-1
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nbDmut"
+
+-1
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nbJmut"
+
+-1
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nb5V_REGIONignoredNt"
+
+0
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="nb3V_REGIONaddedNt"
+
+0
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="scfv"
+
+false
+-----------------------------24688578489001335961783030947
+Content-Disposition: form-data; name="cllSubsetSearch"
+
+false
+-----------------------------24688578489001335961783030947--
+

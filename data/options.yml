@@ -1,0 +1,253 @@
+- section: Your Selection
+  description: Main V-QUEST options.  These and options in the sections below can be given as individual arguments and will override options supplied via config files.  The options in this section must be specified while the others are optional.
+  options:
+    receptorOrLocusType:
+      # by species.  need to split into lists
+      description: One of the receptors/loci available for the chosen species
+      values:
+        alpaca: IG, IGH
+        bovine: IG, IGH, IGK, IGL, TR, TRA, TRG, TRD
+        camel: IGK, TR, TRA, TRB, TRG, TRD
+        cat: IG, IGL, IGK, TR, TRA, TRB, TRD, TRG
+        catfish: IG, IGH
+        chicken: IG, IGH, IGL
+        chondrichthyes: IG, IGH
+        cod: IG, IGH
+        crab-eating-macaque: IG, IGH
+        dog: IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD
+        dolphin: TR, TRA, TRD, TRG
+        ferret: TRB
+        goat: IG, IGK, IGL
+        horse: IG, IGK, IGH
+        human: IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD
+        mas-night-monkey: TR, TRA, TRB, TRG, TRD
+        mouse: IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD
+        nonhuman-primates: TR, TRA, TRB, TRG, TRD
+        pig: IG, IGH, IGK, IGL, TR, TRB
+        platypus: IG, IGH
+        rabbit: IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD
+        rat: IG, IGH, IGK, IGL
+        rhesus-monkey: IG, IGH, IGK, IGL, TR, TRA, TRB, TRD, TRG
+        salmon: IGH
+        sheep: IG, IGH, IGK, IGL, TR, TRA, TRB, TRD
+        teleostei: IG, IGH, IGI
+        trout: IG, IGH, TR, TRB
+        zebrafish: IG, IGH, IGI, TR, TRA, TRD
+    resultType:
+      description: The three possible output types.  There is a group of options below for each type.
+      values:
+      - detailed
+      - synthesis
+      - excel
+    species:
+      description: "One of the supported species names"
+      values:
+      - human
+      - mouse
+      - mas-night-monkey
+      - bovine
+      - camel
+      - dog
+      - goat
+      - chondrichthyes
+      - zebrafish
+      - horse
+      - cat
+      - cod
+      - chicken
+      - catfish
+      - crab-eating-macaque
+      - rhesus-monkey
+      - ferret
+      - nonhuman-primates
+      - trout
+      - platypus
+      - rabbit
+      - sheep
+      - rat
+      - salmon
+      - pig
+      - teleostei
+      - dolphin
+      - alpaca
+    inputType:
+      description: either "inline" or "file"
+      values:
+      - inline
+      - file
+    nbNtPerLine:
+      description: Nb of nucleotides per line in alignments
+      values:
+      - 60
+      - 90
+      - 120
+      - 150
+      - 10000
+    outputType:
+      description: "???"
+      values:
+      - html
+      - text
+- section: Detailed view
+  description: Options specific to the "Detailed view" output mode.  See also "Synthesis view" and "Excel file".
+  options:
+    dv_d_genealignment:
+      description: alignment for d-gene
+      values: bool
+    dv_imgtautomat:
+      description: annotation by imgt/automat
+      values: bool
+    dv_imgtcollierdeperles:
+      description: '0: link to imgt/collier-de-perles tool; 1: imgt/collier de perles
+        (for a nb of sequences < 5); 2: no imgt/collier-de-perles'
+      values:
+      - 0
+      - 1
+      - 2
+    dv_imgtgappedvdjseq:
+      description: sequences of v-, v-j- or v-d-j- region ('nt' and 'aa') with gaps in
+        fasta and access to imgt/phylogene for v-region ('nt')
+      values: bool
+    dv_imgtjctaresults:
+      description: results of imgt/junctionanalysis
+      values: bool
+    dv_junctionseq:
+      description: sequence of the junction ('nt' and 'aa')
+      values: bool
+    dv_j_genealignment:
+      description: alignment for j-gene
+      values: bool
+    dv_v_genealignment:
+      description: alignment for v-gene
+      values: bool
+    dv_v_regionalignment:
+      description: v-region alignment
+      values: bool
+    dv_v_regionhotspots:
+      description: v-region mutation hotspots
+      values: bool
+    dv_v_regionmutstats:
+      description: v-region mutation and aa change statistics
+      values: bool
+    dv_v_regionmuttable:
+      description: v-region mutation and aa change table
+      values: bool
+    dv_v_regionprotdisplay:
+      description: v-region protein display
+      values: bool
+    dv_v_regiontranlation:
+      description: v-region translation
+      values: bool
+    dv_eligibled_gene:
+      description: '... with full list of eligible d-gene'
+      values: bool
+- section: Synthesis view
+  description: Options specific to the "Synthesis view" output mode.  See also "Detailed view" and "Excel file".
+  options:
+    sv_imgtjctaresults:
+      description: results of imgt/junctionanalysis
+      values: bool
+    sv_v_genealignment:
+      description: alignment for v-gene
+      values: bool
+    sv_v_regionalignment:
+      description: v-region alignment
+      values: bool
+    sv_v_regionfrequentaa:
+      description: v-region most frequently occurring aa
+      values: bool
+    sv_v_regionprotdisplay:
+      description: v-region protein display
+      values: bool
+    sv_v_regionprotdisplay2:
+      description: v-region protein display (with aa class colors)
+      values: bool
+    sv_v_regionprotdisplay3:
+      description: v-region protein display (only aa changes displayed)
+      values: bool
+    sv_v_regiontranslation:
+      description: v-region translation
+      values: bool
+- section: Excel file
+  description: Options specific to the "Excel file" output mode.  See also "Detailed view" and "Synthesis view".
+  options:
+    xv_aaseq:
+      description: aa-sequences
+      values: bool
+    xv_imgtgappedaa:
+      description: imgt-gapped-aa-sequences
+      values: bool
+    xv_imgtgappednt:
+      description: imgt-gapped-nt-sequences
+      values: bool
+    xv_junction:
+      description: junction
+      values: bool
+    xv_v_regionhotspots:
+      description: v-region-mutation-hotspots
+      values: bool
+    xv_V_REGIONmutstatsAA:
+      description: V-REGION-AA-change-statistics
+      values: bool
+    xv_V_REGIONmutstatsNt:
+      description: V-REGION-nt-mutation-statistics
+      values: bool
+    xv_V_REGIONmuttable:
+      description: V-REGION-mutation-and-AA-change-table
+      values: bool
+    xv_ntseq:
+      description: nt-sequences
+      values: bool
+    xv_outputtype:
+      description: '0: Open in a spreadsheet; 1: Download in a zip archive; 2: Display
+        1 CSV file in your browser; 3: Download AIRR formatted results'
+      values: [0, 1, 2, 3]
+    xv_parameters:
+      description: Parameters
+      values: bool
+    xv_scFv:
+      description: scFv (only for option "Analysis of single chain Fragment variable (scFv)")
+      values: bool
+    xv_summary:
+      description: Summary
+      values: bool
+- section: Advanced
+  description: Output options grouped under "Advanced parameters" and "Advanced functionalities".
+  options:
+    imgtrefdiralleles:
+      description: 'true: with all alleles; false: with allele *01 only'
+      values: bool
+    imgtrefdirset:
+      description: 'selection of imgt reference directory set; 0: f+orf; 1: f+orf+ in-frame
+        p; 2: f+orf including orphons; 3: f+orf+ in-frame p including orphons'
+      values: [0, 1, 2, 3]
+    v_regionsearchindel:
+      description: search for insertions and deletions in v-region
+      values: bool
+    cllsubsetsearch:
+      description: 'clinical application: search for cll subsets #2 and #8'
+      values: bool
+    scfv:
+      description: ''
+      values: bool
+    nb3v_regionaddednt:
+      description: nb of nucleotides to add (or exclude) in 3' of the v-region for theevaluation
+        of the alignment score (in results 1)
+      values: int
+    nb5v_regionignorednt:
+      description: nb of nucleotides to exclude in 5' of the v-region for the evaluation
+        ofthe nb of mutations (in results 9 and 10)
+      values: int
+    nbd_gene:
+      description: nb of accepted d-gene in igh (default is 1), trb (default is 1) or
+        trd (default is 3) junction; specify -1 for the appropriate default
+      values: [-1, 0, 1, 2, 3]
+    nbdmut:
+      description: nb of accepted mutations in d-region. Specify -1 for the appropriate default
+      values: [-1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    nbjmut:
+      description: nb of accepted mutations in 5'j-region. Specify -1 for the appropriate default
+      values: [-1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    nbvmut:
+      description: nb of accepted mutations in 3'v-region. Specify -1 for the appropriate default
+      values: [-1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10]

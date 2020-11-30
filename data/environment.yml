@@ -1,0 +1,8 @@
+# conda environment YAML for vquest
+name: vquest
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - requests
+  - pyyaml
