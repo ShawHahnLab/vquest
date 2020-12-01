@@ -75,6 +75,9 @@
       values:
       - inline
       - file
+    sequences:
+      description: your nucleotide sequence(s) in FASTA format
+      values: str
     nbNtPerLine:
       description: Nb of nucleotides per line in alignments
       values:

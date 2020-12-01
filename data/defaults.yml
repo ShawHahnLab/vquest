@@ -1,4 +1,5 @@
 outputType: html
+inputType: inline
 nbNtPerLine: 60
 resultType: excel
 dv_V_GENEalignment: true
