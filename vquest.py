@@ -24,10 +24,13 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.propagate = False
 LOGGER.addHandler(logging.StreamHandler())
 
-def vquest_main():
+def vquest_main(arglist=None):
     """Command-line interface for V-QUEST requests"""
     parser = __setup_arg_parser()
-    args = parser.parse_args()
+    if arglist is None:
+        args = parser.parse_args()
+    else:
+        args = parser.parse_args(arglist)
     LOGGER.setLevel(max(10, logging.WARNING - 10*args.verbose))
     LOGGER.debug("args parsed")
     # If nothing at all was given print the help and exit
