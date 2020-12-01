@@ -78,6 +78,9 @@
     sequences:
       description: your nucleotide sequence(s) in FASTA format
       values: str
+    fileSequences:
+      description: path access to a local file containing your sequence(s) in FASTA format
+      values: str
     nbNtPerLine:
       description: Nb of nucleotides per line in alignments
       values:

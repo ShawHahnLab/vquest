@@ -19,6 +19,7 @@ from Bio import SeqIO
 
 URL = "http://www.imgt.org/IMGT_vquest/analysis"
 DELAY = 1 # for rate-limiting multiple requests
+CHUNK_SIZE = 50 # to stay within V-QUEST's limit on sequences in one go
 LOGGER = logging.getLogger(__name__)
 LOGGER.propagate = False
 LOGGER.addHandler(logging.StreamHandler())
@@ -50,28 +51,49 @@ def vquest_main():
     config_full = layer_configs(DEFAULTS, *configs, vquest_args)
     LOGGER.debug("final config: %s",
         " ".join(["%s=%s" % (key, val) for key, val in config_full.items()]))
+    LOGGER.info("Configuration prepared")
     output = vquest(config_full)
+    LOGGER.info("Writing vquest_airr.tsv")
     with open("vquest_airr.tsv", "wt") as f_out:
         f_out.write(output["vquest_airr.tsv"])
+    LOGGER.info("Writing Parameters.txt")
     with open("Parameters.txt", "wt") as f_out:
         f_out.write(output["Parameters.txt"])
+    LOGGER.info("Done.")
+
+def _parse_records(config):
+    """Extract Seq records for sequences given in config"""
+    records = []
+    if "sequences" in config and config["sequences"]:
+        with StringIO(config["sequences"]) as seqs_stream:
+            records.extend(list(SeqIO.parse(seqs_stream, "fasta")))
+    if "fileSequences" in config and config["fileSequences"]:
+        with open(config["fileSequences"]) as f_in:
+            records.extend(list(SeqIO.parse(f_in, "fasta")))
+    return records
 
 def vquest(config):
     """Submit a request to V-QUEST"""
-    supported = [("resultType", "excel"), ("xv_outputtype", 3), ("inputType", "inline")]
+    supported = [("resultType", "excel"), ("xv_outputtype", 3)]
     if all([config.get(pair[0]) == pair[1] for pair in supported]):
         output = {}
-        with StringIO(config["sequences"]) as seqs_stream:
-            records = list(SeqIO.parse(seqs_stream, "fasta"))
-        for chunk in _chunker(records, 50):
+        records = _parse_records(config)
+        if not records:
+            raise ValueError("No sequences supplied")
+        LOGGER.info("Starting request batch for %d sequences total", len(records))
+        for chunk in _chunker(records, CHUNK_SIZE):
             if output:
                 time.sleep(DELAY)
+            LOGGER.info("Sending request with %d sequences...", len(chunk))
             out_handle = StringIO()
             SeqIO.write(chunk, out_handle, "fasta")
             config_chunk = config.copy()
             config_chunk["sequences"] = out_handle.getvalue()
+            config_chunk["inputType"] = "inline"
             response = requests.post(URL, data = config_chunk)
             response = _unzip(response.content)
+            # Only keep one copy of the Parameters.txt data, but append rows
+            # (minus header) of vquest_airr.tsv together
             if "Parameters.txt" not in output:
                 output["Parameters.txt"] = response["Parameters.txt"].decode()
             if "vquest_airr.tsv" not in output:
@@ -99,7 +121,6 @@ def layer_configs(*configs):
     for config in configs[1:]:
         config_full.update(config)
     return config_full
-
 
 def _chunker(iterator, chunksize):
     """Iterate over another iterator in fixed-size chunks.
