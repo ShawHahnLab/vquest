@@ -5,6 +5,7 @@ http://www.imgt.org/IMGT_vquest/analysis
 """
 
 import sys
+import csv
 import logging
 import time
 from io import StringIO, BytesIO
@@ -74,6 +75,14 @@ def vquest(config):
     needed = " ".join([pair[0] + "=" + str(pair[1]) for pair in supported])
     observed = " ".join([pair[0] + "=" + str(config.get(pair[0])) for pair in supported])
     raise NotImplementedError(("Only " + needed + " currently supported, not " + observed))
+
+def airr_to_fasta(airr_txt, seqid_col="sequence_id", aln_col="sequence_alignment"):
+    """Convert AIRR TSV table to FASTA, both as strings."""
+    reader = csv.DictReader(StringIO(airr_txt), delimiter="\t")
+    fasta = ""
+    for row in reader:
+        fasta += ">%s\n%s\n" % (row[seqid_col], row[aln_col])
+    return fasta
 
 def load_config(path):
     """Load YAML config file."""

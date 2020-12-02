@@ -47,12 +47,16 @@ def main(arglist=None):
         " ".join(["%s=%s" % (key, val) for key, val in config_full.items()]))
     LOGGER.info("Configuration prepared")
     output = vquest.vquest(config_full)
-    LOGGER.info("Writing vquest_airr.tsv")
-    with open("vquest_airr.tsv", "wt") as f_out:
-        f_out.write(output["vquest_airr.tsv"])
-    LOGGER.info("Writing Parameters.txt")
-    with open("Parameters.txt", "wt") as f_out:
-        f_out.write(output["Parameters.txt"])
+    if args.align:
+        LOGGER.info("Writing FASTA to stdout")
+        print(vquest.airr_to_fasta(output["vquest_airr.tsv"]))
+    else:
+        LOGGER.info("Writing vquest_airr.tsv")
+        with open("vquest_airr.tsv", "wt") as f_out:
+            f_out.write(output["vquest_airr.tsv"])
+        LOGGER.info("Writing Parameters.txt")
+        with open("Parameters.txt", "wt") as f_out:
+            f_out.write(output["Parameters.txt"])
     LOGGER.info("Done.")
 
 def __setup_arg_parser():
@@ -65,6 +69,11 @@ def __setup_arg_parser():
         help="increase logging verbosity")
     parser.add_argument(
         "--version", "-V", action="version", version=vquest.__version__)
+    parser.add_argument(
+        "--align", "-a", action="store_true",
+        help=("Instead of writing results to files, "
+            "extract the sequence_id and sequence_alignment columns "
+            "from AIRR results and print as FASTA"))
     for opt_section in OPTIONS:
         option_parser = parser.add_argument_group(
             title="V-QUEST options: \"%s\" section" % opt_section["section"],
