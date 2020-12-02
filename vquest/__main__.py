@@ -12,17 +12,23 @@ from . import layer_configs
 
 def main(arglist=None):
     """Command-line interface for V-QUEST requests"""
+    # Parse command-line arguments either from a list or sys.argv.
     parser = __setup_arg_parser()
     if arglist is None:
         args = parser.parse_args()
     else:
         args = parser.parse_args(arglist)
     LOGGER.setLevel(max(10, logging.WARNING - 10*args.verbose))
-    LOGGER.debug("args parsed")
-    # If nothing at all was given print the help and exit
-    nonopts = ["config", "verbose"]
-    args_set = {key: val for key, val in vars(args).items() if val}
-    if not args_set:
+    args_set = {k: v for k, v in vars(args).items() if v is not None}
+    # All the possible vquest options.  They're grouped by section as the keys
+    # to inner dictionaries.
+    vquest_opts = []
+    for opt_section in OPTIONS:
+        vquest_opts.extend(opt_section["options"].keys())
+    vquest_args = {k: v for k, v in args_set.items() if k in vquest_opts}
+    # If no config file(s) and no vquest args were given, just print the help
+    # and exit
+    if not vquest_args and not args.config:
         parser.print_help()
         sys.exit(1)
     LOGGER.debug("command-line arguments: %s",
@@ -34,7 +40,6 @@ def main(arglist=None):
         LOGGER.debug("options via %s: %s",
             filename,
             " ".join(["%s=%s" % (key, val) for key, val in config.items()]))
-    vquest_args = {key: val for key, val in args_set.items() if key not in nonopts}
     LOGGER.debug("overriding command-line options: %s",
         " ".join(["%s=%s" % (key, val) for key, val in vquest_args.items()]))
     config_full = layer_configs(DEFAULTS, *configs, vquest_args)

@@ -1,3 +1,7 @@
+"""
+Misc standalone utilities.
+"""
+
 from io import BytesIO
 from zipfile import ZipFile
 

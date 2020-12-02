@@ -34,6 +34,14 @@ def _parse_records(config):
 
 def vquest(config):
     """Submit a request to V-QUEST"""
+    if not all([
+        config.get("species"),
+        config.get("receptorOrLocusType"),
+        config.get("fileSequences") or config.get("sequences")]):
+        raise ValueError(
+            "species, receptorOrLocusType, and fileSequences "
+            "and/or sequences are required options")
+    # species, receptorOrLocusType, and either fileSequences or sequences
     supported = [("resultType", "excel"), ("xv_outputtype", 3)]
     if all([config.get(pair[0]) == pair[1] for pair in supported]):
         output = {}
@@ -68,6 +76,7 @@ def vquest(config):
 
 def load_config(path):
     """Load YAML config file."""
+    LOGGER.debug("Loading config file: %s", path)
     with open(path) as f_in:
         config = yaml.load(f_in, Loader=yaml.SafeLoader)
     return config

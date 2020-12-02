@@ -132,8 +132,8 @@ class TestVquestEmpty(TestVquest):
 
     def test_vquest(self):
         """Test that an empty config fails as expected."""
-        self.skipTest("not yet implemented")
-        vquest.vquest({})
+        with self.assertRaises(ValueError):
+            vquest.vquest({})
 
     def test_vquest_main(self):
         """Test how the command-line interface handles no arguments.
