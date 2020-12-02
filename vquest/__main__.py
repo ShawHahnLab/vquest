@@ -73,7 +73,9 @@ def __setup_arg_parser():
         "--align", "-a", action="store_true",
         help=("Instead of writing results to files, "
             "extract the sequence_id and sequence_alignment columns "
-            "from AIRR results and print as FASTA"))
+            "from AIRR results and print as FASTA.  "
+            "If there is no text in the sequence_alignment column "
+            "for a given sequence the original sequence is used instead."))
     for opt_section in OPTIONS:
         option_parser = parser.add_argument_group(
             title="V-QUEST options: \"%s\" section" % opt_section["section"],
