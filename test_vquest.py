@@ -126,6 +126,27 @@ CC
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
 
+    def test_vquest_main_alignment(self):
+        """Try using the --align feature.
+
+        In this case the regular output files should not be created and instead
+        FASTA text should be written to stdout.
+        """
+        expected = """>IGKV2-ACR*02
+gacattgtgatgacccagactccactctccctgcccgtcacccctggagagccagcctccatctcctgcaggtctagtcagagcctcttggatagt...gacgggtacacctgtttggactggtacctgcagaagccaggccagtctccacagctcctgatctatgaggtt.....................tccaaccgggtctctggagtccct...gacaggttcagtggcagtggg......tcagncactgatttcacactgaaaatcagccgggtggaagctgaggatgttggggtgtattactgtatgcaaagtatagagtttcctcc
+"""
+        config_path = str(DATA / (self.case + "_config.yml"))
+        out = StringIO()
+        err = StringIO()
+        with redirect_stdout(out), redirect_stderr(err):
+            with tempfile.TemporaryDirectory() as tempdir:
+                os.chdir(tempdir)
+                vquest.__main__.main([config_path, "--align"])
+                self.assertFalse(Path("vquest_airr.tsv").exists())
+                self.assertFalse(Path("Parameters.txt").exists())
+        self.assertEqual(out.getvalue(), expected)
+        self.assertEqual(err.getvalue(), "")
+
 
 class TestVquestEmpty(TestVquest):
     """What if no options are given?"""
@@ -152,6 +173,21 @@ class TestVquestEmpty(TestVquest):
                 with tempfile.TemporaryDirectory() as tempdir:
                     os.chdir(tempdir)
                     vquest.__main__.main([])
+        self.assertNotEqual(out.getvalue(), "")
+        self.assertEqual(err.getvalue(), "")
+
+    def test_vquest_main_alignment(self):
+        """Try using the --align feature.
+
+        This should error out just like without --align.
+        """
+        out = StringIO()
+        err = StringIO()
+        with redirect_stdout(out), redirect_stderr(err):
+            with self.assertRaises(SystemExit):
+                with tempfile.TemporaryDirectory() as tempdir:
+                    os.chdir(tempdir)
+                    vquest.__main__.main(["--align"])
         self.assertNotEqual(out.getvalue(), "")
         self.assertEqual(err.getvalue(), "")
 
@@ -215,19 +251,3 @@ AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
             deletions,
             ("in CDR1-IMGT, from codon 33 of V-REGION: 3 nucleotides "
             "(from position 97 in the user submitted sequence), (do not cause frameshift)"))
-
-    def test_vquest_main(self):
-        """Test how the command-line interface handles no arguments.
-
-        It should exit with a nonzero exit code and write the help text to
-        stdout.
-        """
-        out = StringIO()
-        err = StringIO()
-        with redirect_stdout(out), redirect_stderr(err):
-            with self.assertRaises(SystemExit):
-                with tempfile.TemporaryDirectory() as tempdir:
-                    os.chdir(tempdir)
-                    vquest.__main__.main([])
-        self.assertNotEqual(out.getvalue(), "")
-        self.assertEqual(err.getvalue(), "")
