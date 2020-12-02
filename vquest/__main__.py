@@ -49,7 +49,7 @@ def main(arglist=None):
     output = vquest.vquest(config_full)
     if args.align:
         LOGGER.info("Writing FASTA to stdout")
-        print(vquest.airr_to_fasta(output["vquest_airr.tsv"]))
+        print(vquest.airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
         LOGGER.info("Writing vquest_airr.tsv")
         with open("vquest_airr.tsv", "wt") as f_out:
