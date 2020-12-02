@@ -16,6 +16,7 @@ from contextlib import redirect_stdout, redirect_stderr
 from pathlib import Path
 from io import StringIO
 import vquest
+import vquest.__main__
 
 DATA = Path(__file__).parent / "vquest" / "data" / "tests"
 
@@ -117,7 +118,7 @@ CC
         config_path = str(DATA / (self.case + "_config.yml"))
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
-            vquest.vquest_main([config_path])
+            vquest.__main__.main([config_path])
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
 
@@ -146,6 +147,6 @@ class TestVquestEmpty(TestVquest):
             with self.assertRaises(SystemExit):
                 with tempfile.TemporaryDirectory() as tempdir:
                     os.chdir(tempdir)
-                    vquest.vquest_main([])
+                    vquest.__main__.main([])
         self.assertNotEqual(out.getvalue(), "")
         self.assertEqual(err.getvalue(), "")
