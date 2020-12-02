@@ -1,5 +1,7 @@
 # Automate IMGT V-QUEST usage on imgt.org
 
+[![vquest](https://circleci.com/gh/ressy/vquest.svg?style=shield)](https://circleci.com/gh/ressy/vquest)
+
 [IMGT](http://imgt.org)'s [V-QUEST](http://www.imgt.org/IMGT_vquest/analysis)
 is only available via a web interface.  This Python package automates V-QUEST
 usage by submitting request data like the web form does.  Curently only the
