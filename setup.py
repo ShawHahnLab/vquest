@@ -1,11 +1,12 @@
 import setuptools
+import vquest
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="vquest",
-    version="0.0.1",
+    version=vquest.__version__,
     author="Jesse Connell",
     author_email="jesse@ressy.us",
     description="Automate IMGT V-QUEST usage on imgt.org",
@@ -26,5 +27,6 @@ setuptools.setup(
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
+    install_requires=["biopython", "PyYAML", "requests"],
     python_requires='>=3.6',
 )

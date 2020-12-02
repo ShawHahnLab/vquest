@@ -63,6 +63,8 @@ def __setup_arg_parser():
     parser.add_argument(
         "--verbose", "-v", action="count", default=0,
         help="increase logging verbosity")
+    parser.add_argument(
+        "--version", "-V", action="version", version=vquest.__version__)
     for opt_section in OPTIONS:
         option_parser = parser.add_argument_group(
             title="V-QUEST options: \"%s\" section" % opt_section["section"],
