@@ -13,6 +13,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ressy/vquest",
     packages=setuptools.find_packages(),
+    include_package_data=True,
+    package_data={"vquest": ["data/*", "data/tests/*"]},
+    entry_points={"console_scripts": [
+        "vquest = vquest.__main__:main"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

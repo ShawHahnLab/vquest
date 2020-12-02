@@ -1,13 +1,14 @@
 # Automate IMGT V-QUEST usage on imgt.org
 
 [IMGT](http://imgt.org)'s [V-QUEST](http://www.imgt.org/IMGT_vquest/analysis)
-is only available via a web interface.  This Python module automates V-QUEST
+is only available via a web interface.  This Python package automates V-QUEST
 usage by submitting request data like the web form does.  Curently only the
 "Download AIRR formatted results" option is supported.
 
 Example command-line usage, with rhesus sequences in seqs.fasta:
 
-    ./vquest.py --species rhesus-monkey --receptorOrLocusType IG --fileSequences seqs.fasta
+    pip install . # or skip this and use "python -m vquest" below
+    vquest --species rhesus-monkey --receptorOrLocusType IG --fileSequences seqs.fasta
 
 The output is saved to `Parameters.txt` and `vquest_airr.tsv` (the files
 V-QUEST provides in a zip archive) in the working directory.

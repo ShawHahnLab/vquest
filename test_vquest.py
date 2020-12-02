@@ -17,6 +17,8 @@ from pathlib import Path
 from io import StringIO
 import vquest
 
+DATA = Path(__file__).parent / "vquest" / "data" / "tests"
+
 class TestVquest(unittest.TestCase):
     """Basic test of vquest."""
 
@@ -31,11 +33,7 @@ class TestVquest(unittest.TestCase):
         """Use fake POST request during testing."""
         reqs = sys.modules["requests"]
         reqs.post_real = reqs.post
-        response = (
-            Path(__file__).parent /
-            "data" /
-            "tests" /
-            (self.case + ".zip"))
+        response = DATA / (self.case + ".zip")
         if response.exists():
             with open(response, "rb") as f_in:
                 data = f_in.read()
@@ -116,10 +114,7 @@ CC
 
     def test_vquest_main(self):
         """Test that the command-line interface gives the expected response."""
-        config_path = str(Path(__file__).parent /
-            "data" /
-            "tests" /
-            (self.case + "_config.yml"))
+        config_path = str(DATA / (self.case + "_config.yml"))
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
             vquest.vquest_main([config_path])
