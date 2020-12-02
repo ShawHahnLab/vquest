@@ -14,12 +14,16 @@ setuptools.setup(
     url="https://github.com/ressy/vquest",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    package_data={"vquest": ["data/*", "data/tests/*"]},
+    package_data={"vquest": ["data/tests/*"]},
+    data_files=[("data", [
+        "vquest/data/defaults.yml",
+        "vquest/data/environment.yml",
+        "vquest/data/options.yml"])],
     entry_points={"console_scripts": [
         "vquest = vquest.__main__:main"]},
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
