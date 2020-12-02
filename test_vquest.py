@@ -112,6 +112,10 @@ CC
             "AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCT"
             "CC").lower(),
             seq)
+        seq_analysis_cat = result["vquest_airr.tsv"].splitlines()[1].split("\t")[118]
+        deletions = result["vquest_airr.tsv"].splitlines()[1].split("\t")[123]
+        self.assertEqual(seq_analysis_cat, "1 (noindelsearch)")
+        self.assertEqual(deletions, "")
 
     def test_vquest_main(self):
         """Test that the command-line interface gives the expected response."""
@@ -134,6 +138,83 @@ class TestVquestEmpty(TestVquest):
         """Test that an empty config fails as expected."""
         with self.assertRaises(ValueError):
             vquest.vquest({})
+
+    def test_vquest_main(self):
+        """Test how the command-line interface handles no arguments.
+
+        It should exit with a nonzero exit code and write the help text to
+        stdout.
+        """
+        out = StringIO()
+        err = StringIO()
+        with redirect_stdout(out), redirect_stderr(err):
+            with self.assertRaises(SystemExit):
+                with tempfile.TemporaryDirectory() as tempdir:
+                    os.chdir(tempdir)
+                    vquest.__main__.main([])
+        self.assertNotEqual(out.getvalue(), "")
+        self.assertEqual(err.getvalue(), "")
+
+
+class TestVquestCustom(TestVquest):
+    """Try changing one of the configuration options.
+
+    Note that most of the configuration options in the Excel section actually
+    don't seem to change the results when AIRR output is selected.  The "Search
+    for insertions and deletions in V-REGION" option does change the output
+    though.
+    """
+
+    def setUp(self):
+        self.case = "custom"
+        self.set_up_mock_post()
+
+    def test_vquest(self):
+        """We should see a change in Parameters and the AIRR table."""
+        config = {
+            "species": "rhesus-monkey",
+            "receptorOrLocusType": "IG",
+            "resultType": "excel",
+            "xv_outputtype": 3,
+            "v_regionsearchindel": True,
+            "sequences": """>IGKV2-ACR*02
+GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA
+GAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGGTACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCT
+ATGAGGTTTCCAACCGGGTCTCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC
+AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
+        result = vquest.vquest(config)
+        parameters = [("Date", "Wed Dec 02 19:18:14 CET 2020"),
+        ("IMGT/V-QUEST program version", "3.5.21"),
+        ("IMGT/V-QUEST reference directory release", "202049-2"),
+        ("Species", "Macaca mulatta"),
+        ("Receptor type or locus", "IG"),
+        ("IMGT/V-QUEST reference directory set", "F+ORF+ in-frame P"),
+        ("Search for insertions and deletions", "yes"),
+        ("Nb of nucleotides to add (or exclude) in 3' "
+            "of the V-REGION for the evaluation of the alignment score", "0"),
+        ("Nb of nucleotides to exclude in 5' "
+            "of the V-REGION for the evaluation of the nb of mutations", "0"),
+        ("Analysis of scFv", "no"),
+        ("Number of submitted sequences", "1")]
+        self.assertEqual(
+            "\n".join(["%s\t%s\t" % param for param in parameters]) + "\n\n",
+            result["Parameters.txt"])
+        seq = result["vquest_airr.tsv"].splitlines()[1].split("\t")[1]
+        self.assertEqual(
+            ("GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCC"
+            "ATCTCCTGCAGGTCTAGTCAGAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGG"
+            "TACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCTATGAGGTTTCCAACCGGGTC"
+            "TCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC"
+            "AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCT"
+            "CC").lower(),
+            seq)
+        seq_analysis_cat = result["vquest_airr.tsv"].splitlines()[1].split("\t")[118]
+        deletions = result["vquest_airr.tsv"].splitlines()[1].split("\t")[123]
+        self.assertEqual(seq_analysis_cat, "2 (indelcorr)")
+        self.assertEqual(
+            deletions,
+            ("in CDR1-IMGT, from codon 33 of V-REGION: 3 nucleotides "
+            "(from position 97 in the user submitted sequence), (do not cause frameshift)"))
 
     def test_vquest_main(self):
         """Test how the command-line interface handles no arguments.
