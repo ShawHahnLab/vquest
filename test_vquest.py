@@ -20,8 +20,8 @@ import vquest.__main__
 
 DATA = Path(__file__).parent / "vquest" / "data" / "tests"
 
-class TestVquest(unittest.TestCase):
-    """Basic test of vquest."""
+class TestVquestBase(unittest.TestCase):
+    """Base class for supporting code.  No actual tests here."""
 
     def setUp(self):
         self.case = "basic"
@@ -49,6 +49,10 @@ class TestVquest(unittest.TestCase):
         """Put back original post function after testing."""
         reqs = sys.modules["requests"]
         reqs.post = reqs.post_real
+
+
+class TestVquest(TestVquestBase):
+    """Basic test of vquest."""
 
     def test_vquest(self):
         """Test that a basic request gives the expected response."""
