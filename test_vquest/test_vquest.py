@@ -275,3 +275,33 @@ AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
             vquest.__main__.main(["--imgtrefdirset", "1", config_path])
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
+
+
+class TestVquestInvalid(TestVquestBase):
+    """Test vquest for an invalid request.
+
+    Here the server should return an HTML document with an error message, which
+    we should pick up and raise as a VquestError.
+    """
+
+    def test_vquest(self):
+        """Test that an html file with an error message is parsed correctly."""
+        config = {
+            "species": "rhesus-monkey",
+            "receptorOrLocusType": "antibody", # not valid!
+            "resultType": "excel",
+            "xv_outputtype": 3,
+            "sequences": """>IGKV2-ACR*02
+GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA
+GAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGGTACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCT
+ATGAGGTTTCCAACCGGGTCTCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC
+AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
+        with self.assertRaises(vquest.VquestError) as context:
+            vquest.vquest(config)
+        self.assertEqual(
+            context.exception.server_messages,
+            ["The receptor type or locus is not available for this species"])
+        self.assertEqual(self.post.call_count, 1)
+        self.assertEqual(
+            self.post.call_args.args,
+            ('http://www.imgt.org/IMGT_vquest/analysis', ))
