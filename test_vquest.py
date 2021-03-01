@@ -255,3 +255,12 @@ AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
             deletions,
             ("in CDR1-IMGT, from codon 33 of V-REGION: 3 nucleotides "
             "(from position 97 in the user submitted sequence), (do not cause frameshift)"))
+
+    def test_vquest_main(self):
+        """Try an extra argument given as though on the command line."""
+        config_path = str(DATA / (self.case + "_config.yml"))
+        with tempfile.TemporaryDirectory() as tempdir:
+            os.chdir(tempdir)
+            vquest.__main__.main(["--imgtrefdirset", "1", config_path])
+            self.assertTrue(Path("vquest_airr.tsv").exists())
+            self.assertTrue(Path("Parameters.txt").exists())
