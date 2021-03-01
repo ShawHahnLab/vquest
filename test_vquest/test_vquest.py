@@ -18,29 +18,48 @@ from io import StringIO
 import vquest
 import vquest.__main__
 
-DATA = Path(__file__).parent / "vquest" / "data" / "tests"
-
 class TestVquestBase(unittest.TestCase):
     """Base class for supporting code.  No actual tests here."""
 
     def setUp(self):
-        self.case = "basic"
         self.set_up_mock_post()
+        self.__startdir = os.getcwd()
 
     def tearDown(self):
         self.tear_down_mock_post()
+        os.chdir(self.__startdir)
+
+    @property
+    def path(self):
+        """Path for supporting files for each class."""
+        # adapted from https://github.com/ShawHahnLab/umbra/blob/dev/test_umbra/test_common.py
+        path = self.__class__.__module__.split(".") + [self.__class__.__name__]
+        path.insert(1, "data")
+        path = Path("/".join(path))
+        return path
 
     def set_up_mock_post(self):
         """Use fake POST request during testing."""
         reqs = sys.modules["requests"]
         reqs.post_real = reqs.post
-        response = DATA / (self.case + ".zip")
+        response = self.path / "response.dat"
+        headers_path = self.path / "headers.txt"
         if response.exists():
             with open(response, "rb") as f_in:
                 data = f_in.read()
         else:
             data = None
-        reqs.post = Mock(return_value=Mock(content=data))
+        if headers_path.exists():
+            headers = {}
+            with open(headers_path, "rt") as f_in:
+                for line in f_in:
+                    key, val = line.split(" ", 1)
+                    headers[key] = val
+        else:
+            headers = {}
+        # When the fake post function is called, it returns an object that has
+        # one attribute, "content", containing the data supplied here.
+        reqs.post = Mock(return_value=Mock(content=data, headers=headers))
         # for easy access, though it's sys-wide
         self.post = reqs.post
 
@@ -51,7 +70,7 @@ class TestVquestBase(unittest.TestCase):
         reqs.post = reqs.post_real
 
 
-class TestVquest(TestVquestBase):
+class TestVquestSimple(TestVquestBase):
     """Basic test of vquest."""
 
     def test_vquest(self):
@@ -123,7 +142,7 @@ CC
 
     def test_vquest_main(self):
         """Test that the command-line interface gives the expected response."""
-        config_path = str(DATA / (self.case + "_config.yml"))
+        config_path = str((self.path / "config.yml").resolve())
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
             vquest.__main__.main([config_path])
@@ -139,7 +158,7 @@ CC
         expected = """>IGKV2-ACR*02
 gacattgtgatgacccagactccactctccctgcccgtcacccctggagagccagcctccatctcctgcaggtctagtcagagcctcttggatagt...gacgggtacacctgtttggactggtacctgcagaagccaggccagtctccacagctcctgatctatgaggtt.....................tccaaccgggtctctggagtccct...gacaggttcagtggcagtggg......tcagncactgatttcacactgaaaatcagccgggtggaagctgaggatgttggggtgtattactgtatgcaaagtatagagtttcctcc
 """
-        config_path = str(DATA / (self.case + "_config.yml"))
+        config_path = str((self.path / "config.yml").resolve())
         out = StringIO()
         err = StringIO()
         with redirect_stdout(out), redirect_stderr(err):
@@ -152,12 +171,8 @@ gacattgtgatgacccagactccactctccctgcccgtcacccctggagagccagcctccatctcctgcaggtctagtca
         self.assertEqual(err.getvalue(), "")
 
 
-class TestVquestEmpty(TestVquest):
+class TestVquestEmpty(TestVquestSimple):
     """What if no options are given?"""
-
-    def setUp(self):
-        self.case = "empty"
-        self.set_up_mock_post()
 
     def test_vquest(self):
         """Test that an empty config fails as expected."""
@@ -196,7 +211,7 @@ class TestVquestEmpty(TestVquest):
         self.assertEqual(err.getvalue(), "")
 
 
-class TestVquestCustom(TestVquest):
+class TestVquestCustom(TestVquestSimple):
     """Try changing one of the configuration options.
 
     Note that most of the configuration options in the Excel section actually
@@ -204,10 +219,6 @@ class TestVquestCustom(TestVquest):
     for insertions and deletions in V-REGION" option does change the output
     though.
     """
-
-    def setUp(self):
-        self.case = "custom"
-        self.set_up_mock_post()
 
     def test_vquest(self):
         """We should see a change in Parameters and the AIRR table."""
@@ -258,7 +269,7 @@ AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
 
     def test_vquest_main(self):
         """Try an extra argument given as though on the command line."""
-        config_path = str(DATA / (self.case + "_config.yml"))
+        config_path = str((self.path / "config.yml").resolve())
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
             vquest.__main__.main(["--imgtrefdirset", "1", config_path])
