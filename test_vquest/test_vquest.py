@@ -42,15 +42,24 @@ class TestVquestBase(unittest.TestCase):
         """Use fake POST request during testing."""
         reqs = sys.modules["requests"]
         reqs.post_real = reqs.post
-        response = self.path / "response.zip"
+        response = self.path / "response.dat"
+        headers_path = self.path / "headers.txt"
         if response.exists():
             with open(response, "rb") as f_in:
                 data = f_in.read()
         else:
             data = None
+        if headers_path.exists():
+            headers = {}
+            with open(headers_path, "rt") as f_in:
+                for line in f_in:
+                    key, val = line.split(" ", 1)
+                    headers[key] = val
+        else:
+            headers = {}
         # When the fake post function is called, it returns an object that has
         # one attribute, "content", containing the data supplied here.
-        reqs.post = Mock(return_value=Mock(content=data))
+        reqs.post = Mock(return_value=Mock(content=data, headers=headers))
         # for easy access, though it's sys-wide
         self.post = reqs.post
 
