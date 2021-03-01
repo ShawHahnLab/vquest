@@ -83,11 +83,16 @@ def __setup_arg_parser():
         for optname, opt in opt_section["options"].items():
             args = {
                 "help": opt["description"]}
+            # receptorOrLocusType is a special case, but otherwise the pattern is:
+            # "values" can be an actual type, like bool, or is assumed to be a
+            # list of possible values.  In the latter case the type is taken to
+            # be the inferred type of the first entry in the list.
             if optname != "receptorOrLocusType":
                 if isinstance(opt["values"], type):
                     args["type"] = opt["values"]
                 else:
                     args["choices"] = opt["values"]
+                    args["type"] = type(opt["values"][0])
                     # Maybe helpful for long lists:
                     # https://stackoverflow.com/a/16985727/4499968
             option_parser.add_argument("--" + optname, **args)

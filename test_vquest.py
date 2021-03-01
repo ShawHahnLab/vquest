@@ -20,8 +20,8 @@ import vquest.__main__
 
 DATA = Path(__file__).parent / "vquest" / "data" / "tests"
 
-class TestVquest(unittest.TestCase):
-    """Basic test of vquest."""
+class TestVquestBase(unittest.TestCase):
+    """Base class for supporting code.  No actual tests here."""
 
     def setUp(self):
         self.case = "basic"
@@ -49,6 +49,10 @@ class TestVquest(unittest.TestCase):
         """Put back original post function after testing."""
         reqs = sys.modules["requests"]
         reqs.post = reqs.post_real
+
+
+class TestVquest(TestVquestBase):
+    """Basic test of vquest."""
 
     def test_vquest(self):
         """Test that a basic request gives the expected response."""
@@ -251,3 +255,12 @@ AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
             deletions,
             ("in CDR1-IMGT, from codon 33 of V-REGION: 3 nucleotides "
             "(from position 97 in the user submitted sequence), (do not cause frameshift)"))
+
+    def test_vquest_main(self):
+        """Try an extra argument given as though on the command line."""
+        config_path = str(DATA / (self.case + "_config.yml"))
+        with tempfile.TemporaryDirectory() as tempdir:
+            os.chdir(tempdir)
+            vquest.__main__.main(["--imgtrefdirset", "1", config_path])
+            self.assertTrue(Path("vquest_airr.tsv").exists())
+            self.assertTrue(Path("Parameters.txt").exists())
