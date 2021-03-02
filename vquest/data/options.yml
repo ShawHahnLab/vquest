@@ -1,5 +1,8 @@
 - section: Your Selection
-  description: Main V-QUEST options.  These and options in the sections below can be given as individual arguments and will override options supplied via config files.  The options in this section must be specified while the others are optional.
+  # The options in this section must be specified while the others are
+  # optional.  A number of these have defaults defined in defaults.yml but some
+  # (e.g. species) must be given explicitly.
+  description: Main V-QUEST options.  These and options in the sections below can be given as individual arguments and will override options supplied via config files.
   options:
     receptorOrLocusType:
       # by species.  need to split into lists
