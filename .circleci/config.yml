@@ -11,7 +11,7 @@ jobs:
       - python/load-cache
       - python/install-deps
       - python/save-cache
-        - key: {{checksum "setup.py" }}
+        - key: setup-{{checksum "setup.py" }}
       - run:
           command: python -m unittest
           name: Test
