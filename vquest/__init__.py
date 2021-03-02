@@ -12,6 +12,7 @@ from io import StringIO, BytesIO
 from pathlib import Path
 import yaml
 import requests
+from requests_html import HTML
 from Bio import SeqIO
 from .util import unzip, chunker
 
@@ -22,6 +23,14 @@ CHUNK_SIZE = 50 # to stay within V-QUEST's limit on sequences in one go
 LOGGER = logging.getLogger(__name__)
 LOGGER.propagate = False
 LOGGER.addHandler(logging.StreamHandler())
+
+class VquestError(Exception):
+    """Vquest-related errors.  These can have one or more messages provided by the server."""
+
+    def __init__(self, message, server_messages=None):
+        self.message = message
+        self.server_messages = server_messages
+        super().__init__(self.message)
 
 def _parse_records(config):
     """Extract Seq records for sequences given in config"""
@@ -61,6 +70,13 @@ def vquest(config):
             config_chunk["sequences"] = out_handle.getvalue()
             config_chunk["inputType"] = "inline"
             response = requests.post(URL, data = config_chunk)
+            ctype = response.headers.get("Content-Type")
+            LOGGER.debug("Received data of type %s", ctype)
+            if ctype and "text/html" in ctype:
+                html = HTML(html=response.content)
+                errors = [div.text for div in html.find("div.form_error")]
+                if errors:
+                    raise VquestError("; ".join(errors), errors)
             response = unzip(response.content)
             # Only keep one copy of the Parameters.txt data, but append rows
             # (minus header) of vquest_airr.tsv together
