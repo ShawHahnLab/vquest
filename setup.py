@@ -27,6 +27,6 @@ setuptools.setup(
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
-    install_requires=["biopython", "PyYAML", "requests"],
+    install_requires=["biopython", "PyYAML", "requests", "requests-html"],
     python_requires='>=3.6',
 )
