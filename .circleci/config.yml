@@ -8,11 +8,9 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      #- python/load-cache:
-      #      key: setup-{{checksum "setup.py" }}
+      - python/load-cache
       - python/install-deps
-      #- python/save-cache:
-      #    key: setup-{{checksum "setup.py" }}
+      - python/save-cache
       - run:
           command: python -m unittest
           name: Test

@@ -1,3 +1,4 @@
 biopython
 requests
+requests-html
 PyYAML
