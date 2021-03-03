@@ -14,6 +14,9 @@ jobs:
       - run:
           command: python -m unittest
           name: Test
+      - run:
+          command: python -m vquest -h
+          name: Try CLI
 
 workflows:
   main:
