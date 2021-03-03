@@ -12,6 +12,7 @@
 ### Changed
 
  * Reorganized and expanded test code as its own package ([#6])
+ * Added basic test of command-line usage ([#10])
  * Clarified wording on required options ([#8])
 
 ### Fixed
@@ -19,6 +20,7 @@
  * Parse command-line options that should be integers from a finite list of
    options as integers instead of strings ([#5])
 
+[#10]: https://github.com/ressy/vquest/pull/10
 [#8]: https://github.com/ressy/vquest/pull/8
 [#7]: https://github.com/ressy/vquest/pull/7
 [#6]: https://github.com/ressy/vquest/pull/6
