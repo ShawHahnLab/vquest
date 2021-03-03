@@ -16,7 +16,7 @@ from requests_html import HTML
 from Bio import SeqIO
 from .util import unzip, chunker
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 URL = "http://www.imgt.org/IMGT_vquest/analysis"
 DELAY = 1 # for rate-limiting multiple requests
 CHUNK_SIZE = 50 # to stay within V-QUEST's limit on sequences in one go
