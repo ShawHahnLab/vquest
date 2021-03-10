@@ -1,5 +1,7 @@
 # Automate IMGT V-QUEST usage on imgt.org
 
+[![vquest](https://circleci.com/gh/ressy/vquest.svg?style=shield)](https://circleci.com/gh/ressy/vquest)
+
 [IMGT](http://imgt.org)'s [V-QUEST](http://www.imgt.org/IMGT_vquest/analysis)
 is only available via a web interface.  This Python package automates V-QUEST
 usage by submitting request data like the web form does.  Curently only the
@@ -12,6 +14,12 @@ Example command-line usage, with rhesus sequences in seqs.fasta:
 
 The output is saved to `Parameters.txt` and `vquest_airr.tsv` (the files
 V-QUEST provides in a zip archive) in the working directory.
+
+Or with `--align` to automatically extract the alignment as FASTA:
+
+    vquest --align --species rhesus-monkey --receptorOrLocusType IG --fileSequences seqs.fasta
+
+Here the aligned FASTA text is printed directly to standard output.
 
 Example Python usage:
 

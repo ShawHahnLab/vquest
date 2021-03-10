@@ -1,0 +1,995 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="author" content="IMGT team">
+	<meta name="keywords"
+		content="IMGT, immunogenetics, information system, bioinformatics, immunoglobulin, IG, T cell receptor, TR, MHC, RPI, immune system, BLAST">
+	<meta name="description" content="IMGT/JunctionAnalysis">
+	<meta name="robots" content="all">
+	<link type="image/ico" href="images/favicon.ico" rel="icon" />
+	<link type="text/css" href="css/main.css" rel="stylesheet" />
+	<link type="text/css" href="css/header.css" rel="stylesheet" />
+	<link type="text/css" href="css/footer.css" rel="stylesheet" />
+	<link type="text/css" href="css/vquest_footer.css" rel="stylesheet" />
+	<link type="text/css" href="css/main_form.css" rel="stylesheet" />
+	<link type="text/css" href="css/vquest_main_form.css" rel="stylesheet" />
+	<link type="text/css" href="css/jquery.tree-multiselect.min.css" rel="stylesheet" />
+	<link type="text/css" href="css/jcta_result.css" rel="stylesheet" />
+	<link type="text/css" href="css/vquest_results.css" rel="stylesheet" />
+	<link type="text/css" href="css/amino_acid_colours.css" rel="stylesheet" />
+	
+
+
+
+
+        <script type="text/javascript" src="/IMGT_vquest/struts/js/base/jquery-2.2.4.min.js"></script>
+        <!-- script type="text/javascript" src="/IMGT_vquest/struts/js/base/core.min.js?s2j=4.0.3"></script -->
+        <script type="text/javascript" src="/IMGT_vquest/struts/js/base/version.min.js"></script>
+<script type="text/javascript" src="/IMGT_vquest/struts/js/plugins/jquery.subscribe.min.js?s2j=4.0.3"></script>
+
+<script type="text/javascript" src="/IMGT_vquest/struts/js/struts2/jquery.struts2.min.js?s2j=4.0.3"></script>
+
+<script type="text/javascript">
+    $(function () {
+        jQuery.struts2_jquery.version = "4.0.3";
+        jQuery.scriptPath = "/IMGT_vquest/struts/";
+        jQuery.struts2_jquery.gridLocal = "en";
+        jQuery.struts2_jquery.timeLocal = "en";
+        jQuery.struts2_jquery.datatablesLocal = "en";
+        jQuery.ajaxSettings.traditional = true;
+
+        jQuery.ajaxSetup({
+            cache: false
+        });
+
+        jQuery.struts2_jquery.require("js/struts2/jquery.ui.struts2.min.js?s2j=4.0.3");
+
+    });
+</script>
+
+    <link id="jquery_theme_link" rel="stylesheet"
+          href="/IMGT_vquest/struts/themes/smoothness/jquery-ui.css?s2j=4.0.3" type="text/css"/>
+
+	<title>IMGT/V-QUEST</title>
+</head>
+<body class="main">
+<div id="container">
+	<div id="header">
+		<div id="logo">
+			<a href="/"><img src="images/logo_IMGT.png"  alt="IMGT&reg;"></a>
+			<div class="logo_url">http://www.imgt.org</div>
+		</div>
+		<h1>
+WELCOME !<br /> to <a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639">IMGT/V-QUEST</a></h1>
+		<h2>IMGT&reg;, the international ImMunoGeneTics information system&reg;</h2>
+	</div>
+	<div id="header_notes">
+		<p id="reference">
+			<strong>Citing IMGT/V-QUEST</strong>:<br />
+			Brochet, X. et al., Nucl. Acids Res.  36, W503-508 (2008).
+			<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=18503082&amp;dopt=Abstract" target="_blank">PMID: 18503082</a>.
+			<a href="http://nar.oxfordjournals.org/content/36/suppl_2/W503.full-text-lowres.pdf" target="_blank"><img src="images/pdficon.png" border="0" /></a><br />
+			Giudicelli, V., Brochet, X., Lefranc, M.-P., Cold Spring Harb Protoc. 2011 Jun 1;2011(6). pii: pdb.prot5633. doi: 10.1101/pdb.prot5633.<br />
+			<a href="http://www.ncbi.nlm.nih.gov/pubmed/21632778">PMID: 21632778</a> 
+			<a href="http://cshprotocols.cshlp.org/content/2011/6/pdb.prot5633.abstract">Abstract</a> 
+			also in <em>IMGT booklet with generous provision from 
+			<a href="http://cshprotocols.cshlp.org/">Cold Spring Harbor (CSH) Protocols</a></em> 
+			<a href="/PDF/CSHP/IMGT_Booklet.pdf"><img src="images/pdficon.png" border="0" /> (high res)</a> 
+			<a href="/PDF/CSHP/IMGT_Booklet_lo.pdf"><img src="images/pdficon.png" border="0" /> (lower res)</a>
+		</p>
+		<p>
+			IMGT/V-QUEST program version: <a href="/IMGT_vquest/program_versions;jsessionid=CB9322BF13F78056B97A5B89D7DF0639">3.5.21</a> (1 December 2020) - IMGT/V-QUEST reference directory release: <a href="/IMGT_vquest/data_releases;jsessionid=CB9322BF13F78056B97A5B89D7DF0639">202049-2</a> (1 December 2020)
+		</p>
+	</div>
+	<div class="body">
+		
+
+<h2>Analyse your IG (or antibody) or TR nucleotide sequences</h2>
+
+<p>
+	The list of the IMGT/V-QUEST reference directory sets to which your sequences can be compared is available
+	in <a href="http://www.imgt.org/vquest/refseqh.html#VQUEST" target="_blank">here</a>.
+</p>
+<p>
+	Human sequence sets to test IMGT/V-QUEST are available <a href="/IMGT_vquest/test_sets;jsessionid=CB9322BF13F78056B97A5B89D7DF0639">here</a>
+</p>
+
+<form id="main_form" name="main_form" action="/IMGT_vquest/analysis;jsessionid=CB9322BF13F78056B97A5B89D7DF0639" method="POST" enctype="multipart/form-data">
+	<div class="before_sequence_main">
+		<h3>Your selection</h3>
+		<div class="form_error">
+			
+				 
+			
+			
+				 
+			                    <ul                                id="locus_error"                                class="errorMessage"                            >
+                        <li><span>The receptor type or locus is not available for this species</span></li>
+        </ul>
+
+			
+				 
+			
+			
+				 
+			
+			
+				 
+			
+		</div>
+		<label for="species">Species</label><select name="species" id="species_select">
+    <option value=""
+    >---</option>
+    <option value="human">Homo sapiens (human)</option>
+    <option value="mouse">Mus musculus (house mouse)</option>
+    <option value="mas-night-monkey">Aotus nancymaae (Ma's night monkey)</option>
+    <option value="bovine">Bos taurus (bovine)</option>
+    <option value="camel">Camelus dromedarius (Arabian camel)</option>
+    <option value="dog">Canis lupus familiaris (dog)</option>
+    <option value="goat">Capra hircus (goat)</option>
+    <option value="chondrichthyes">Chondrichthyes</option>
+    <option value="zebrafish">Danio rerio (zebrafish)</option>
+    <option value="horse">Equus caballus (horse)</option>
+    <option value="cat">Felis catus (domestic cat)</option>
+    <option value="cod">Gadus morhua (Atlantic cod)</option>
+    <option value="chicken">Gallus gallus (chicken)</option>
+    <option value="catfish">Ictalurus punctatus (Channel catfish)</option>
+    <option value="crab-eating-macaque">Macaca fascicularis (crab-eating macaque)</option>
+    <option value="rhesus-monkey" selected="selected">Macaca mulatta (Rhesus monkey)</option>
+    <option value="ferret">Mustela putorius furo (ferret)</option>
+    <option value="nonhuman-primates">Nonhuman Primates</option>
+    <option value="trout">Oncorhynchus mykiss (rainbow trout)</option>
+    <option value="platypus">Ornithorhynchus anatinus (platypus)</option>
+    <option value="rabbit">Oryctolagus cuniculus (rabbit)</option>
+    <option value="sheep">Ovis aries (sheep)</option>
+    <option value="rat">Rattus norvegicus (Norway rat)</option>
+    <option value="salmon">Salmo salar (Atlantic salmon)</option>
+    <option value="pig">Sus scrofa (pig)</option>
+    <option value="teleostei">Teleostei</option>
+    <option value="dolphin">Tursiops truncatus (Bottlenose dolphin)</option>
+    <option value="alpaca">Vicugna pacos (alpaca)</option>
+
+
+</select>
+
+
+		<label for="receptorOrLocusType">Receptor type or locus</label><select name="receptorOrLocusType" id="locus_select">
+    <option value=""
+    >---</option>
+
+
+</select>
+
+
+		<!-- hidden inputs to handle the locus selection -->
+		
+			<input type="hidden" id="human" value="IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="mouse" value="IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="mas-night-monkey" value="TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="bovine" value="IG, IGH, IGK, IGL, TR, TRA, TRG, TRD" />
+		
+			<input type="hidden" id="camel" value="IGK, TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="dog" value="IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="goat" value="IG, IGK, IGL" />
+		
+			<input type="hidden" id="chondrichthyes" value="IG, IGH" />
+		
+			<input type="hidden" id="zebrafish" value="IG, IGH, IGI, TR, TRA, TRD" />
+		
+			<input type="hidden" id="horse" value="IG, IGK, IGH" />
+		
+			<input type="hidden" id="cat" value="IG, IGL, IGK, TR, TRA, TRB, TRD, TRG" />
+		
+			<input type="hidden" id="cod" value="IG, IGH" />
+		
+			<input type="hidden" id="chicken" value="IG, IGH, IGL" />
+		
+			<input type="hidden" id="catfish" value="IG, IGH" />
+		
+			<input type="hidden" id="crab-eating-macaque" value="IG, IGH" />
+		
+			<input type="hidden" id="rhesus-monkey" value="IG, IGH, IGK, IGL, TR, TRA, TRB, TRD, TRG" />
+		
+			<input type="hidden" id="ferret" value="TRB" />
+		
+			<input type="hidden" id="nonhuman-primates" value="TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="trout" value="IG, IGH, TR, TRB" />
+		
+			<input type="hidden" id="platypus" value="IG, IGH" />
+		
+			<input type="hidden" id="rabbit" value="IG, IGH, IGK, IGL, TR, TRA, TRB, TRG, TRD" />
+		
+			<input type="hidden" id="sheep" value="IG, IGH, IGK, IGL, TR, TRA, TRB, TRD" />
+		
+			<input type="hidden" id="rat" value="IG, IGH, IGK, IGL" />
+		
+			<input type="hidden" id="salmon" value="IGH" />
+		
+			<input type="hidden" id="pig" value="IG, IGH, IGK, IGL, TR, TRB" />
+		
+			<input type="hidden" id="teleostei" value="IG, IGH, IGI" />
+		
+			<input type="hidden" id="dolphin" value="TR, TRA, TRD, TRG" />
+		
+			<input type="hidden" id="alpaca" value="IG, IGH" />
+		
+	</div>
+
+	<div class="sequence_main">
+		<h3>Sequence submission</h3>
+		<div>
+			<div class="input_type_box">
+				<input type="radio" name="inputType" value="inline" id="inline_sequence" checked="checked" />
+				<label for="inline_sequence">
+					Type (or copy/paste) your nucleotide sequence(s) in
+					<a href="http://www.imgt.org/IMGTindex/Fasta.php">FASTA format</a></label>
+				<textarea name="sequences" cols="" rows="" id="main_form_sequences">&gt;IGKV2-ACR*02
+291GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCC
+TCCATCTCCTGCAGGTCTAGTCA292GAGCCTCTTGGATAGTGACGGGTACACCTGTTTG
+GACTGGTACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCT293ATGAGGTTTCC
+AACCGGGTCTCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACA
+CTGAAAATC294AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGT
+ATAGAGTTTCCTCC
+</textarea>
+			</div>
+			<div class="input_type_box">
+				<input type="radio" name="inputType" value="file" id="file_sequence" />
+				<label for="file_sequence">
+					Or give the path access to a local file containing your sequence(s)
+					in <a href="http://www.imgt.org/IMGTindex/Fasta.php">FASTA format</a></label>
+				<input type="file" name="fileSequences" size="75" accept=".txt,.seq,.fas,.fasta,.fa" />
+			</div>
+		
+			<div class="buttons">
+				<input type="submit" value="Start" id="main_form_0"/>
+
+				<input type="reset" value="Clear the form"/>
+
+			</div>
+		</div>
+	</div>
+	
+	<h3 class="display_results">Display results</h3>
+	<div class="before_section">
+		<input type="radio" name="resultType" value="detailed" id="dv_resultType"  />
+		<label for="dv_resultType" class="before_main_title">A. Detailed view</label>
+		
+		<div class="output_format_section">
+			<input type="hidden" name="outputType" value="html" id="main_form_outputType"/>
+			<input type="radio" value="html" id="html_dv" checked=checked />
+			<label for="html_dv">HTML</label>
+			
+			<input type="radio" value="text" id="text_dv"  />
+			<label for="text_dv">Text</label>
+		</div>
+		
+		<input type="hidden" name="nbNtPerLine" value="60" id="main_form_nbNtPerLine"/>
+		<label for="dv_nbNtPerLine">Nb of nucleotides per line in alignments:</label>
+		<select name="dv_nbNtPerLine" id="main_form_dv_nbNtPerLine">
+    <option value="60" selected="selected">60</option>
+    <option value="90">90</option>
+    <option value="120">120</option>
+    <option value="150">150</option>
+    <option value="10000">10000</option>
+
+
+</select>
+
+
+		
+		<label for="dv_nbAlignedSequence">Nb of aligned reference sequences:</label>
+		<select name="dv_nbAlignedSequence" id="dv_nbAlignedSequence">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5" selected="selected">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+
+
+</select>
+
+
+	</div>
+	<div class="display_results" id="detailed_view">
+		<div class="columns">
+			<div><ol>
+				<li>
+					<input type="checkbox" name="dv_V_GENEalignment" value="true" checked="checked" id="main_form_dv_V_GENEalignment"/><input type="hidden" id="__checkbox_main_form_dv_V_GENEalignment" name="__checkbox_dv_V_GENEalignment" value="true" />
+					<label for="dv_V_GENEalignment"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#alignmentv">Alignment for V-GENE</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_D_GENEalignment" value="true" id="main_form_dv_D_GENEalignment"/><input type="hidden" id="__checkbox_main_form_dv_D_GENEalignment" name="__checkbox_dv_D_GENEalignment" value="true" />
+					<label for="dv_D_GENEalignment"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#alignmentd">Alignment for D-GENE</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_J_GENEalignment" value="true" checked="checked" id="main_form_dv_J_GENEalignment"/><input type="hidden" id="__checkbox_main_form_dv_J_GENEalignment" name="__checkbox_dv_J_GENEalignment" value="true" />
+					<label for="dv_J_GENEalignment"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#alignmentj">Alignment for J-GENE</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_IMGTjctaResults" value="true" checked="checked" id="main_form_dv_IMGTjctaResults"/><input type="hidden" id="__checkbox_main_form_dv_IMGTjctaResults" name="__checkbox_dv_IMGTjctaResults" value="true" />
+					<label for="dv_IMGTjctaResults"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#junction">Results of IMGT/JunctionAnalysis</a></label>
+					<br />
+					<input type="radio" name="dv_eligibleD_GENE" id="main_form_dv_eligibleD_GENEtrue" value="true"/><label for="main_form_dv_eligibleD_GENEtrue">with full list of eligible D-GENE</label>
+
+					<br />
+					<input type="radio" name="dv_eligibleD_GENE" id="main_form_dv_eligibleD_GENEfalse" checked="checked" value="false"/><label for="main_form_dv_eligibleD_GENEfalse">without list of eligible D-GENE</label>
+
+				</li>
+				<li>
+					<input type="checkbox" name="dv_JUNCTIONseq" value="true" checked="checked" id="main_form_dv_JUNCTIONseq"/><input type="hidden" id="__checkbox_main_form_dv_JUNCTIONseq" name="__checkbox_dv_JUNCTIONseq" value="true" />
+					<label for="dv_JUNCTIONseq"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#junction2">Sequence of the JUNCTION ('nt' and 'AA')</a></label>
+				</li>
+			</ol></div>
+			<!-- column two -->
+			<div><ol start="6">
+				<li>
+					<input type="checkbox" name="dv_V_REGIONalignment" value="true" checked="checked" id="main_form_dv_V_REGIONalignment"/><input type="hidden" id="__checkbox_main_form_dv_V_REGIONalignment" name="__checkbox_dv_V_REGIONalignment" value="true" />
+					<label for="dv_V_REGIONalignment"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#CDR_FR">V-REGION alignment</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_V_REGIONtranlation" value="true" checked="checked" id="main_form_dv_V_REGIONtranlation"/><input type="hidden" id="__checkbox_main_form_dv_V_REGIONtranlation" name="__checkbox_dv_V_REGIONtranlation" value="true" />
+					<label for="dv_V_REGIONtranlation"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#translation">V-REGION translation</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_V_REGIONprotdisplay" value="true" checked="checked" id="main_form_dv_V_REGIONprotdisplay"/><input type="hidden" id="__checkbox_main_form_dv_V_REGIONprotdisplay" name="__checkbox_dv_V_REGIONprotdisplay" value="true" />
+					<label for="dv_V_REGIONprotdisplay"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#vdisplay">V-REGION protein display</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_V_REGIONmuttable" value="true" checked="checked" id="main_form_dv_V_REGIONmuttable"/><input type="hidden" id="__checkbox_main_form_dv_V_REGIONmuttable" name="__checkbox_dv_V_REGIONmuttable" value="true" />
+					<label for="dv_V_REGIONmuttable"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#mut-table">V-REGION mutation and AA change table</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_V_REGIONmutstats" value="true" checked="checked" id="main_form_dv_V_REGIONmutstats"/><input type="hidden" id="__checkbox_main_form_dv_V_REGIONmutstats" name="__checkbox_dv_V_REGIONmutstats" value="true" />
+					<label for="dv_V_REGIONmutstats"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#mut-stat">V-REGION mutation and AA change statistics</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_V_REGIONhotspots" value="true" checked="checked" id="main_form_dv_V_REGIONhotspots"/><input type="hidden" id="__checkbox_main_form_dv_V_REGIONhotspots" name="__checkbox_dv_V_REGIONhotspots" value="true" />
+					<label for="dv_V_REGIONhotspots"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#hotspot">V-REGION mutation hotspots</a></label>
+				</li>
+			</ol></div>
+			<!-- column three -->
+			<div><ol start="12">
+				<li>
+					<input type="checkbox" name="dv_IMGTgappedVDJseq" value="true" checked="checked" id="main_form_dv_IMGTgappedVDJseq"/><input type="hidden" id="__checkbox_main_form_dv_IMGTgappedVDJseq" name="__checkbox_dv_IMGTgappedVDJseq" value="true" />
+					<label for="dv_IMGTgappedVDJseq"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#phylogene">Sequences of V-, V-J- or V-D-J- REGION ('nt' and 'AA') with gaps in FASTA</a></label>
+					<br /><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#phylogene">and access to IMGT/PhyloGene for V-REGION ('nt')</a>
+				</li>
+				<li>
+					<input type="checkbox" name="dv_IMGTAutomat" value="true" checked="checked" id="main_form_dv_IMGTAutomat"/><input type="hidden" id="__checkbox_main_form_dv_IMGTAutomat" name="__checkbox_dv_IMGTAutomat" value="true" />
+					<label for="dv_IMGTAutomat"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#annot">Annotation by IMGT/Automat</a></label>
+				</li>
+				<li>
+					<a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#collier">IMGT Collier de Perles</a>
+					<br />
+					<input type="radio" name="dv_IMGTCollierdePerles" id="main_form_dv_IMGTCollierdePerles0" checked="checked" value="0"/><label for="main_form_dv_IMGTCollierdePerles0">link to IMGT/Collier-de-Perles tool</label>
+
+					<br />
+					<input type="radio" name="dv_IMGTCollierdePerles" id="main_form_dv_IMGTCollierdePerles1" value="1"/><label for="main_form_dv_IMGTCollierdePerles1">IMGT/Collier de Perles (for a nb of sequences &lt; 5)</label>
+
+					<br />
+					<input type="radio" name="dv_IMGTCollierdePerles" id="main_form_dv_IMGTCollierdePerles2" value="2"/><label for="main_form_dv_IMGTCollierdePerles2">no IMGT/Collier-de-Perles</label>
+
+				</li>
+			</ol></div>
+		</div>
+	</div>
+	
+	<div class="before_section">
+		<input type="radio" name="resultType" value="synthesis" id="sv_resultType"  />
+		<label for="sv_resultType" class="before_main_title">B. Synthesis view</label>
+		
+		<div class="output_format_section">
+			<input type="radio" value="html" id="html_sv" checked=checked />
+			<label for="html_sv">HTML</label>
+			
+			<input type="radio" value="text" id="text_sv"  />
+			<label for="text_sv">Text</label>
+		</div>
+		
+		<label for="sv_nbNtPerLine">Nb of nucleotides per line in alignments:</label>
+		<select name="sv_nbNtPerLine" id="main_form_sv_nbNtPerLine">
+    <option value="60" selected="selected">60</option>
+    <option value="90">90</option>
+    <option value="120">120</option>
+    <option value="150">150</option>
+    <option value="10000">10000</option>
+
+
+</select>
+
+
+		
+		<label for="sv_V_GENEordertable">Summary table sequence order:</label>
+		<select name="sv_V_GENEordertable" id="main_form_sv_V_GENEordertable">
+    <option value="0" selected="selected">V-GENE and allele name</option>
+    <option value="1">input</option>
+
+
+</select>
+
+
+	</div>
+	<div class="display_results" id="synthesis_view">
+		<div class="columns">
+			<div><ol>
+				<li>
+					<input type="checkbox" name="sv_V_GENEalignment" value="true" checked="checked" id="main_form_sv_V_GENEalignment"/><input type="hidden" id="__checkbox_main_form_sv_V_GENEalignment" name="__checkbox_sv_V_GENEalignment" value="true" />
+					<label for="sv_V_GENEalignment"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#alignmentv2">Alignment for V-GENE</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="sv_V_REGIONalignment" value="true" checked="checked" id="main_form_sv_V_REGIONalignment"/><input type="hidden" id="__checkbox_main_form_sv_V_REGIONalignment" name="__checkbox_sv_V_REGIONalignment" value="true" />
+					<label for="sv_V_REGIONalignment"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#CDR_FR2">V-REGION alignment</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="sv_V_REGIONtranslation" value="true" checked="checked" id="main_form_sv_V_REGIONtranslation"/><input type="hidden" id="__checkbox_main_form_sv_V_REGIONtranslation" name="__checkbox_sv_V_REGIONtranslation" value="true" />
+					<label for="sv_V_REGIONtranslation"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#translation2">V-REGION translation</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="sv_V_REGIONprotdisplay" value="true" checked="checked" id="main_form_sv_V_REGIONprotdisplay"/><input type="hidden" id="__checkbox_main_form_sv_V_REGIONprotdisplay" name="__checkbox_sv_V_REGIONprotdisplay" value="true" />
+					<label for="sv_V_REGIONprotdisplay"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#proteindisplay1">V-REGION protein display</a></label>
+				</li>
+			</ol></div>
+			<!-- column two -->
+			<div><ol start="5">
+				<li>
+					<input type="checkbox" name="sv_V_REGIONprotdisplay2" value="true" checked="checked" id="main_form_sv_V_REGIONprotdisplay2"/><input type="hidden" id="__checkbox_main_form_sv_V_REGIONprotdisplay2" name="__checkbox_sv_V_REGIONprotdisplay2" value="true" />
+					<label for="sv_V_REGIONprotdisplay2"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#proteindisplay2">V-REGION protein display (with AA class colors)</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="sv_V_REGIONprotdisplay3" value="true" checked="checked" id="main_form_sv_V_REGIONprotdisplay3"/><input type="hidden" id="__checkbox_main_form_sv_V_REGIONprotdisplay3" name="__checkbox_sv_V_REGIONprotdisplay3" value="true" />
+					<label for="sv_V_REGIONprotdisplay3"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#proteindisplay3">V-REGION protein display (only AA changes displayed)</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="sv_V_REGIONfrequentAA" value="true" checked="checked" id="main_form_sv_V_REGIONfrequentAA"/><input type="hidden" id="__checkbox_main_form_sv_V_REGIONfrequentAA" name="__checkbox_sv_V_REGIONfrequentAA" value="true" />
+					<label for="sv_V_REGIONfrequentAA"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#occuringAA">V-REGION most frequently occurring AA</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="sv_IMGTjctaResults" value="true" checked="checked" id="main_form_sv_IMGTjctaResults"/><input type="hidden" id="__checkbox_main_form_sv_IMGTjctaResults" name="__checkbox_sv_IMGTjctaResults" value="true" />
+					<label for="sv_IMGTjctaResults"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#jcta">Results of IMGT/JunctionAnalysis</a></label>
+				</li>
+			</ol></div>
+		</div>
+	</div>
+	
+	<div class="before_section">
+		<input type="radio" name="resultType" value="excel" id="xv_resultType" checked=checked />
+		<label for="xv_resultType" class="before_main_title">C. Excel file</label>
+		
+		<input type="radio" name="xv_outputtype" id="main_form_xv_outputtype0" value="0"/><label for="main_form_xv_outputtype0">Open in a spreadsheet</label>
+<input type="radio" name="xv_outputtype" id="main_form_xv_outputtype1" value="1"/><label for="main_form_xv_outputtype1">Download in a zip archive</label>
+<input type="radio" name="xv_outputtype" id="main_form_xv_outputtype2" value="2"/><label for="main_form_xv_outputtype2">Display 1 CSV file in your browser</label>
+<input type="radio" name="xv_outputtype" id="main_form_xv_outputtype3" checked="checked" value="3"/><label for="main_form_xv_outputtype3">Download AIRR formatted results</label>
+
+	</div>
+	<div class="display_results" id="excel_file">
+		<div class="columns">
+			<div><ol>
+				<li>
+					<input type="checkbox" name="xv_summary" value="true" checked="checked" id="main_form_xv_summary"/><input type="hidden" id="__checkbox_main_form_xv_summary" name="__checkbox_xv_summary" value="true" />
+					<label for="xv_summary"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Esummary">Summary</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_IMGTgappedNt" value="true" checked="checked" id="main_form_xv_IMGTgappedNt"/><input type="hidden" id="__checkbox_main_form_xv_IMGTgappedNt" name="__checkbox_xv_IMGTgappedNt" value="true" />
+					<label for="xv_IMGTgappedNt"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Egappednt">IMGT-gapped-nt-sequences</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_ntseq" value="true" checked="checked" id="main_form_xv_ntseq"/><input type="hidden" id="__checkbox_main_form_xv_ntseq" name="__checkbox_xv_ntseq" value="true" />
+					<label for="xv_ntseq"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Ent">nt-sequences</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_IMGTgappedAA" value="true" checked="checked" id="main_form_xv_IMGTgappedAA"/><input type="hidden" id="__checkbox_main_form_xv_IMGTgappedAA" name="__checkbox_xv_IMGTgappedAA" value="true" />
+					<label for="xv_IMGTgappedAA"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#EgappedAA">IMGT-gapped-AA-sequences</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_AAseq" value="true" checked="checked" id="main_form_xv_AAseq"/><input type="hidden" id="__checkbox_main_form_xv_AAseq" name="__checkbox_xv_AAseq" value="true" />
+					<label for="xv_AAseq"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#EAA">AA-sequences</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_JUNCTION" value="true" checked="checked" id="main_form_xv_JUNCTION"/><input type="hidden" id="__checkbox_main_form_xv_JUNCTION" name="__checkbox_xv_JUNCTION" value="true" />
+					<label for="xv_JUNCTION"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Ejunction">Junction</a></label>
+				</li>
+			</ol></div>
+			<!-- column two -->
+			<div><ol start="7">
+				<li>
+					<input type="checkbox" name="xv_V_REGIONmuttable" value="true" checked="checked" id="main_form_xv_V_REGIONmuttable"/><input type="hidden" id="__checkbox_main_form_xv_V_REGIONmuttable" name="__checkbox_xv_V_REGIONmuttable" value="true" />
+					<label for="xv_V_REGIONmuttable"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Emuttable">V-REGION-mutation-and-AA-change-table</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_V_REGIONmutstatsNt" value="true" checked="checked" id="main_form_xv_V_REGIONmutstatsNt"/><input type="hidden" id="__checkbox_main_form_xv_V_REGIONmutstatsNt" name="__checkbox_xv_V_REGIONmutstatsNt" value="true" />
+					<label for="xv_V_REGIONmutstatsNt"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Entstat">V-REGION-nt-mutation-statistics</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_V_REGIONmutstatsAA" value="true" checked="checked" id="main_form_xv_V_REGIONmutstatsAA"/><input type="hidden" id="__checkbox_main_form_xv_V_REGIONmutstatsAA" name="__checkbox_xv_V_REGIONmutstatsAA" value="true" />
+					<label for="xv_V_REGIONmutstatsAA"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#EAAstat">V-REGION-AA-change-statistics</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_V_REGIONhotspots" value="true" checked="checked" id="main_form_xv_V_REGIONhotspots"/><input type="hidden" id="__checkbox_main_form_xv_V_REGIONhotspots" name="__checkbox_xv_V_REGIONhotspots" value="true" />
+					<label for="xv_V_REGIONhotspots"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Ehotspot">V-REGION-mutation-hotspots</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_parameters" value="true" checked="checked" id="main_form_xv_parameters"/><input type="hidden" id="__checkbox_main_form_xv_parameters" name="__checkbox_xv_parameters" value="true" />
+					<label for="xv_parameters"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#Eparam">Parameters</a></label>
+				</li>
+				<li>
+					<input type="checkbox" name="xv_scFv" value="true" id="xv_scFv"/><input type="hidden" id="__checkbox_xv_scFv" name="__checkbox_xv_scFv" value="true" />
+					<label for="xv_scFv"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#scfv">scFv (only for option "Analysis of single chain Fragment variable (scFv)")</a></label>
+				</li>
+			</ol></div>
+		</div>
+	</div>
+	
+	<h3 class="advanced_parameters">Advanced parameters</h3>
+	<div class="advanced_parameters">
+		<div>
+			<label for="IMGTrefdirSet"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#aparametersrd">Selection of IMGT reference directory set</a></label>
+			<div class="second_item">
+				<select name="IMGTrefdirSet" id="main_form_IMGTrefdirSet">
+    <option value="0">F+ORF</option>
+    <option value="1" selected="selected">F+ORF+ in-frame P</option>
+    <option value="2">F+ORF including orphons</option>
+    <option value="3">F+ORF+ in-frame P including orphons</option>
+
+
+</select>
+
+
+			</div>
+			<input type="radio" name="IMGTrefdirAlleles" id="main_form_IMGTrefdirAllelestrue" checked="checked" value="true"/><label for="main_form_IMGTrefdirAllelestrue">With all alleles</label>
+<input type="radio" name="IMGTrefdirAlleles" id="main_form_IMGTrefdirAllelesfalse" value="false"/><label for="main_form_IMGTrefdirAllelesfalse">With allele *01 only</label>
+
+		</div>
+		<div>
+			<label for="V_REGIONsearchIndel"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#insdel">Search for insertions and deletions in V-REGION</a></label>
+			<input type="radio" name="V_REGIONsearchIndel" id="main_form_V_REGIONsearchIndeltrue" value="true"/><label for="main_form_V_REGIONsearchIndeltrue">Yes</label>
+<input type="radio" name="V_REGIONsearchIndel" id="main_form_V_REGIONsearchIndelfalse" checked="checked" value="false"/><label for="main_form_V_REGIONsearchIndelfalse">No</label>
+
+		</div>
+		<div id="jcta_params">
+			<label for="nbD_GENE"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#aparametersjcta">Parameters for IMGT/JunctionAnalysis</a></label>
+			<div class="second_item">
+				<span>Nb of accepted D-GENE in IGH (default is 1), TRB (default is 1) or TRD (default is 3) JUNCTION</span>
+				<select name="nbD_GENE" id="main_form_nbD_GENE">
+    <option value="-1" selected="selected">default</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+
+
+</select>
+
+
+			</div>
+			<div class="inline_div">
+				<label for="acceptedMutationsNumber">Nb of accepted mutations:</label>
+				<div>
+					<select name="nbVmut" id="main_form_nbVmut">
+    <option value="-1" selected="selected">default</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+
+
+</select>
+
+
+					in 3'V-REGION
+				</div>
+				<div>
+					<select name="nbDmut" id="main_form_nbDmut">
+    <option value="-1" selected="selected">default</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+
+
+</select>
+
+
+					in D-REGION
+				</div>
+				<div>
+					<select name="nbJmut" id="main_form_nbJmut">
+    <option value="-1" selected="selected">default</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+
+
+</select>
+
+
+					in 5'J-REGION
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div id="detailed_view_params">
+			<label><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#aparametersdv">Parameters for "Detailed view"</a></label>
+			<label for="nb5V_REGIONignoredNt" class="sub_label">Nb of nucleotides to exclude in 5' of the V-REGION for the evaluation of the nb of mutations (in results 9 and 10)</label>
+			<input type="number" name="nb5V_REGIONignoredNt" value="0" id="main_form_nb5V_REGIONignoredNt" min="0"/>
+			<label for="nb3V_REGIONaddedNt" class="sub_label">Nb of nucleotides to add (or exclude) in 3' of the V-REGION for the evaluation of the alignment score (in results 1)</label>
+			<input type="number" name="nb3V_REGIONaddedNt" value="0" id="main_form_nb3V_REGIONaddedNt"/>
+		</div>
+	</div>
+	
+	<h3 class="advanced_parameters">Advanced functionalities</h3>
+	<div class="advanced_parameters">
+		<div>
+			<label for="scfv"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#afunc">Analysis of single chain Fragment variable (scFv)</a></label>
+			<input type="radio" name="scfv" id="scfv_paramtrue" value="true"/><label for="scfv_paramtrue">Yes</label>
+<input type="radio" name="scfv" id="scfv_paramfalse" checked="checked" value="false"/><label for="scfv_paramfalse">No</label>
+
+		</div>
+
+		<div>
+			<label for="cllSubsetSearch"><a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639#afunccll">Clinical application: search for CLL subsets #2 and #8</a></label>
+			<input type="radio" name="cllSubsetSearch" id="cllSubsetSearch_paramtrue" value="true"/><label for="cllSubsetSearch_paramtrue">Yes</label>
+<input type="radio" name="cllSubsetSearch" id="cllSubsetSearch_paramfalse" checked="checked" value="false"/><label for="cllSubsetSearch_paramfalse">No</label>
+
+		</div>
+	</div>
+</form>
+
+
+
+
+<script type="text/javascript" src="js/jquery.tree-multiselect.min.js"></script>
+
+<script type="text/javascript">
+	
+
+
+$(function() {
+	$("#species_select").change(function() {
+		handleSpeciesSelection($(this));
+	});
+	
+	// select the "file" option when the user is choosing a file
+	$("input[name='fileSequences']").change(function() {
+		$("input[name='inputType'][value='file']").prop("checked", true);
+	});
+	// select the "inline" option when the user is changing the textarea
+	$("textarea[name='sequences']").change(function() {
+		$("input[name='inputType'][value='inline']").prop("checked", true);
+	});
+	
+	// handle the default values
+	$( "div#detailed_view" ).append('<input type="hidden" class="default_values" value="true, false, true, true, true, true, true, true, true, true, true, true, true, false, 0" />');
+	$( "div#synthesis_view" ).append('<input type="hidden" class="default_values" value="true, true, true, true, true, true, true, true" />');
+	$( "div#excel_file" ).append('<input type="hidden" class="default_values" value="true, true, true, true, true, true, true, true, true, true, true, false" />');
+	
+	$( "div.display_results" ).append('<ul class="inline checks">' +
+										'<li class="check_all">Check all</li>' +
+										'<li class="uncheck_all">Uncheck all</li>' +
+										'<li class="default">Default</li>' +
+									'</ul>');
+	
+	$(".check_all").click(function() {
+		checkOrUncheck(this, true);
+	});
+	$(".uncheck_all").click(function() {
+		checkOrUncheck(this, false);
+	});
+	$(".default").click(function() {
+		resetToDefaults(this);
+	});
+	
+	// handle the scfv parameter
+	$("input[name='scfv']").change(function() {
+		$("input#xv_scFv").prop('disabled', ($("input[name='scfv']:checked").val() == 'false'));
+		$("input#xv_scFv").prop('checked', ($("input[name='scfv']:checked").val() == 'true'));
+	});
+	
+	// handle the HTML/Text options
+	$("input#html_dv, input#text_dv, input#html_sv, input#text_sv").change(function() {
+		var id = $(this).attr("id");
+		var idToUncheck = id.replace("html", "htmltemp").replace("text", "texttemp").replace("htmltemp", "text").replace("texttemp", "html");
+		$("input#" + idToUncheck).prop("checked", false);
+		$("input[name='outputType']").val($(this).val());
+	});
+	
+	// handle the nbNtPerLine
+	$("#main_form_dv_nbNtPerLine, #main_form_sv_nbNtPerLine").change(function() {
+		$("input[name='nbNtPerLine']").val($(this).val());
+	});
+	
+	// handle the output types
+	$("input[name='resultType']").change(handleResultTypes);
+	handleResultTypes(null);
+	
+	// handle the error messages fadings when correcting the mistakes
+	handleErrorMessages();
+	
+	// handle the form clearing (manual clearing when the page has been loaded with preselected values: 
+	// whith params in the URL or page reloaded because of unsuccesful form validation)
+	$("input[type=reset]").click(function() {
+		forceFormClearing();
+	});
+});
+
+$(window).on("load", function() {
+	// init the locus select box
+	// It's done on the "load" event because of a bug when doing it
+	// in the "ready" function: the value of the select box was not retrieved when using
+	// the "back" button of the browser, causing the locus select box to be empty.
+	handleSpeciesSelection($("#species_select"));
+});
+
+function handleSpeciesSelection(selectbox) {
+	$("#locus_select").find('option').remove().end().append('<option value="">---</option>');
+
+	if($(selectbox).val() != '') {
+		var selectedSpecies = $(selectbox).val();
+		var loci = $("#" + selectedSpecies).val();
+		var lociArray = loci.split(',');
+		
+		for (i = 0; i < lociArray.length; i++) {
+			var locus = lociArray[i].trim();
+			$("#locus_select").append('<option value="' + locus + '">' + locus + '</option>');
+		}
+		
+		// in case a locus is given in the URL, preselect it
+		var selectedLocus = $.urlParam("receptorOrLocusType");
+		if(selectedLocus != null && $("#locus_select option[value=" + selectedLocus + "]").length > 0) {
+			$("#locus_select").val(selectedLocus);
+		}
+	}
+	
+	if(typeof handleCustomRefDirAvailability === "function") {
+		// handle the custom ref dir availability
+		// we need to do it after, otherwise the locus selection might not have been redefined yet
+		handleCustomRefDirAvailability();
+	}
+}
+
+function checkOrUncheck(element, value) {
+	// li > ul > div section
+	$(element).parent().parent().find("input[type='checkbox']").each(function() {
+		$(this).prop('checked', value);
+	});
+}
+
+function resetToDefaults(element) {
+	var sDefaults = $(element).parent().parent().find("input[type='hidden'].default_values").val();
+	var defaults = sDefaults.split(",");
+	var lastIndex = 0;
+	// first the checkBoxes
+	$(element).parent().parent().find("input[type='checkbox']").each(function(index) {
+		var defValue = defaults[index].trim();
+		lastIndex = index;
+		$(this).prop('checked', (defValue == 'true'));
+	});
+	// next the radioboxes
+	var lastFieldName = null;
+	var newIndex = lastIndex;
+	$(element).parent().parent().find("input[type='radio']").each(function(index) {
+		var currentFieldName = $(this).attr("name");
+		if(lastFieldName == null || currentFieldName != lastFieldName) {
+			// this is a new field
+			lastFieldName = currentFieldName;
+			newIndex += 1;
+		}
+		
+		var defValue = defaults[newIndex].trim();
+		var thisValue = $(this).val();
+		$(this).prop('checked', (defValue == thisValue));
+	});
+}
+
+function handleResultTypes(event) {
+	$(".before_section").each(function() {
+		var checked = $(this).find("input[name='resultType']").prop("checked");
+		$(this).find("input[type='radio'][name!='resultType'], select").prop("disabled", !checked);
+		
+		var type = $(this).find("input[name='resultType']").val();
+		if(checked && (type == "detailed" || type == "synthesis")) {
+			// handle the HTML/Text choice and the nbNtPerLine
+			var htmlTextVal = $(this).find("input#html_dv:enabled:checked, input#text_dv:enabled:checked, input#html_sv:enabled:checked, input#text_sv:enabled:checked").val();
+			$("input[name='outputType']").val(htmlTextVal);
+			
+			var nbNtPerLineVal = $(this).find("#main_form_dv_nbNtPerLine:enabled option:selected, #main_form_sv_nbNtPerLine:enabled option:selected").val();
+			$("input[name='nbNtPerLine']").val(nbNtPerLineVal);
+		}
+	});
+}
+
+function handleErrorMessages() {
+	$("#species_select").change(function() {
+		var species = $("#species_select").val();
+		if(species != null && species != "") {
+			$("#species_error").fadeOut(300);
+		}
+	});
+	
+	$("#locus_select").change(function() {
+		var locus = $("#locus_select").val();
+		if(locus != null && locus != "") {
+			$("#locus_error").fadeOut(300);
+		}
+	});
+	
+	$("input[name=inputType]").change(function() {
+		var input = $("input[name=inputType]:checked").val();
+		if(input != null && (input == "inline" || input == "file")) {
+			$("#input_type_error").fadeOut(300);
+			if(input == "inline") {
+				$("#file_sequences_error").fadeOut(300);
+			}
+			else {
+				$("#sequences_error").fadeOut(300);
+			}
+		}
+	});
+	
+	$("#main_form_sequences").change(function() {
+		var sequences = $("#main_form_sequences").val();
+		if(sequences != null && sequences != "") {
+			$("#sequences_error").fadeOut(300);
+			$("#file_sequences_error").fadeOut(300);
+		}
+	});
+	
+	$("input[name=fileSequences]").change(function() {
+		var file = $("input[name=fileSequences]").val();
+		if(file != null && file != "") {
+			$("#file_sequences_error").fadeOut(300);
+			$("#sequences_error").fadeOut(300);
+		}
+	});
+}
+
+function forceFormClearing() {
+	$("#species_select option").first().attr("selected", true);
+	$("#locus_select option").first().attr("selected", true);
+	$("#file_sequence").attr("checked", false);
+	$("#inline_sequence").attr("checked", true);
+	$("#main_form_sequences").text("");
+	$("input[name=fileSequences]").val("");
+	
+	$("input[type=radio][value=text]").prop("checked", false);
+	$("input[type=radio][value=html]").prop("checked", true);
+	$("#html_dv").trigger("change");
+	
+	$("select[name=dv_nbNtPerLine] option").attr("selected", false);
+	$("select[name=dv_nbNtPerLine] option").first().attr("selected", true);
+	$("select[name=sv_nbNtPerLine] option").attr("selected", false);
+	$("select[name=sv_nbNtPerLine] option").first().attr("selected", true);
+	$("select[name=dv_nbNtPerLine]").trigger("change");
+	
+	$("select[name=dv_nbAlignedSequence] option").attr("selected", false);
+	$("select[name=dv_nbAlignedSequence] option[value=5]").attr("selected", true);
+	
+	$("select[name=sv_V_GENEordertable] option").attr("selected", false);
+	$("select[name=sv_V_GENEordertable] option[value=1]").attr("selected", true);
+	
+	$("input[name=xv_outputtype]").attr("checked", false);
+	$("input[name=xv_outputtype][value=0]").attr("checked", true);
+	
+	$("input[name=resultType]").prop("checked", false);
+	$("input[name=resultType]").attr("checked", false);
+	$("input[name=resultType][value=detailed]").prop("checked", true);
+	$("input[name=resultType][value=detailed]").attr("checked", true);
+	$("input[name=resultType][value=detailed]").trigger("change");
+	
+	$(".default").click();
+	
+	// handle the advanced params
+	$("select[name=IMGTrefdirSet] option").attr("selected", false);
+	$("select[name=IMGTrefdirSet] option:eq(1)").attr("selected", true);
+	
+	$("input[name=IMGTrefdirAlleles]").attr("checked", false);
+	$("input[name=IMGTrefdirAlleles][value=true]").attr("checked", true);
+	
+	$("input[name=V_REGIONsearchIndel]").attr("checked", false);
+	$("input[name=V_REGIONsearchIndel][value=false]").attr("checked", true);
+	
+	$("select[name=nbD_GENE] option").attr("selected", false);
+	$("select[name=nbD_GENE] option").first().attr("selected", true);
+	
+	$("select[name=nbVmut] option").attr("selected", false);
+	$("select[name=nbVmut] option").first().attr("selected", true);
+	
+	$("select[name=nbDmut] option").attr("selected", false);
+	$("select[name=nbDmut] option").first().attr("selected", true);
+	
+	$("select[name=nbJmut] option").attr("selected", false);
+	$("select[name=nbJmut] option").first().attr("selected", true);
+	
+	$("input[name=nb5V_REGIONignoredNt]").attr("value", "0");
+	$("input[name=nb3V_REGIONaddedNt]").attr("value", "0");
+	
+	$("input[name=scfv]").attr("checked", false);
+	$("input[name=scfv][value=false]").attr("checked", true);
+}
+
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                      .exec(window.location.search);
+
+    return (results !== null) ? results[1] || 0 : false;
+}
+</script>
+	</div>
+	<div id="footer">
+		<p class="menu">
+			<a href="/IMGT_vquest/user_guide;jsessionid=CB9322BF13F78056B97A5B89D7DF0639">IMGT/V-QUEST Documentation</a> 
+			<a href="/IMGT_vquest/action;jsessionid=CB9322BF13F78056B97A5B89D7DF0639">IMGT/V-QUEST Search page</a>
+		</p>
+		
+		<p class="menu left">
+			<a href="http://www.imgt.org/">IMGT Home page</a> |
+			<a href="http://www.imgt.org/IMGTrepertoire/">IMGT Repertoire (IG and TR)</a>,
+			<a href="http://www.imgt.org/IMGTrepertoireMH/">(MH)</a>,
+			<a href="http://www.imgt.org/IMGTrepertoireRPI/">(RPI)</a> |
+			<a href="http://www.imgt.org/IMGTindex/">IMGT Index</a> |
+			<a href="http://www.imgt.org/IMGTScientificChart/">IMGT Scientific chart</a> |
+			<a href="http://www.imgt.org/IMGTeducation/">IMGT Education</a>
+			<a href="http://www.imgt.org//rss/">IMGT Latest news <img alt="rss" src="http://www.imgt.org/rss/feed-icon-12x12.png"/></a>
+		</p>
+		
+		<span class="logosFoot">
+			<a href="http://www.cnrs.fr/" class="lien_ext"><img src="images/cnrs.png" class="vertical" alt="logo CNRS"></a>&nbsp;&nbsp;
+			<a href="http://www.umontpellier.fr/" class="lien_ext"><img src="images/universite_mtp2.png" class="vertical" alt="Université de Montpellier"></a>&nbsp;&nbsp;
+			<a href="http://europa.eu.int/comm/research/" class="lien_ext"><img src="images/UE.png" class="vertical" alt="logo UE"></a>&nbsp;&nbsp;
+		</span>
+		
+		
+		<p>
+			<span>&copy; Copyright 1995-2021 IMGT&reg;, the international ImMunoGeneTics information system&reg;
+			| <a href="/about/termsofuse.php">Terms of use</a> | <a href="/about/aboutus.php">About us</a> | <a href="mailto:contact-imgt@igh.cnrs.fr">Contact us</a> | <a href="/about/CitingIMGT.php">Citing IMGT</a></p>
+			</span>
+		</p>
+	</div>
+</div>
+</body>
+</html>

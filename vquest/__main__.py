@@ -47,12 +47,16 @@ def main(arglist=None):
         " ".join(["%s=%s" % (key, val) for key, val in config_full.items()]))
     LOGGER.info("Configuration prepared")
     output = vquest.vquest(config_full)
-    LOGGER.info("Writing vquest_airr.tsv")
-    with open("vquest_airr.tsv", "wt") as f_out:
-        f_out.write(output["vquest_airr.tsv"])
-    LOGGER.info("Writing Parameters.txt")
-    with open("Parameters.txt", "wt") as f_out:
-        f_out.write(output["Parameters.txt"])
+    if args.align:
+        LOGGER.info("Writing FASTA to stdout")
+        print(vquest.airr_to_fasta(output["vquest_airr.tsv"]), end="")
+    else:
+        LOGGER.info("Writing vquest_airr.tsv")
+        with open("vquest_airr.tsv", "wt") as f_out:
+            f_out.write(output["vquest_airr.tsv"])
+        LOGGER.info("Writing Parameters.txt")
+        with open("Parameters.txt", "wt") as f_out:
+            f_out.write(output["Parameters.txt"])
     LOGGER.info("Done.")
 
 def __setup_arg_parser():
@@ -65,6 +69,13 @@ def __setup_arg_parser():
         help="increase logging verbosity")
     parser.add_argument(
         "--version", "-V", action="version", version=vquest.__version__)
+    parser.add_argument(
+        "--align", "-a", action="store_true",
+        help=("Instead of writing results to files, "
+            "extract the sequence_id and sequence_alignment columns "
+            "from AIRR results and print as FASTA.  "
+            "If there is no text in the sequence_alignment column "
+            "for a given sequence the original sequence is used instead."))
     for opt_section in OPTIONS:
         option_parser = parser.add_argument_group(
             title="V-QUEST options: \"%s\" section" % opt_section["section"],
@@ -72,11 +83,16 @@ def __setup_arg_parser():
         for optname, opt in opt_section["options"].items():
             args = {
                 "help": opt["description"]}
+            # receptorOrLocusType is a special case, but otherwise the pattern is:
+            # "values" can be an actual type, like bool, or is assumed to be a
+            # list of possible values.  In the latter case the type is taken to
+            # be the inferred type of the first entry in the list.
             if optname != "receptorOrLocusType":
                 if isinstance(opt["values"], type):
                     args["type"] = opt["values"]
                 else:
                     args["choices"] = opt["values"]
+                    args["type"] = type(opt["values"][0])
                     # Maybe helpful for long lists:
                     # https://stackoverflow.com/a/16985727/4499968
             option_parser.add_argument("--" + optname, **args)
