@@ -15,6 +15,12 @@ Example command-line usage, with rhesus sequences in seqs.fasta:
 The output is saved to `Parameters.txt` and `vquest_airr.tsv` (the files
 V-QUEST provides in a zip archive) in the working directory.
 
+Or with `--align` to automatically extract the alignment as FASTA:
+
+    vquest --align --species rhesus-monkey --receptorOrLocusType IG --fileSequences seqs.fasta
+
+Here the aligned FASTA text is printed directly to standard output.
+
 Example Python usage:
 
     >>> from vquest import *
