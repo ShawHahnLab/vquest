@@ -6,9 +6,11 @@ import sys
 import logging
 import argparse
 import vquest
-from . import LOGGER, DEFAULTS, OPTIONS
-from . import load_config
-from . import layer_configs
+from vquest import LOGGER
+from . import request
+from .config import DEFAULTS, OPTIONS, load_config, layer_configs
+from .util import airr_to_fasta
+from .version import __version__
 
 def main(arglist=None):
     """Command-line interface for V-QUEST requests"""
@@ -46,10 +48,10 @@ def main(arglist=None):
     LOGGER.debug("final config: %s",
         " ".join(["%s=%s" % (key, val) for key, val in config_full.items()]))
     LOGGER.info("Configuration prepared")
-    output = vquest.vquest(config_full)
+    output = request.vquest(config_full)
     if args.align:
         LOGGER.info("Writing FASTA to stdout")
-        print(vquest.airr_to_fasta(output["vquest_airr.tsv"]), end="")
+        print(airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
         LOGGER.info("Writing vquest_airr.tsv")
         with open("vquest_airr.tsv", "wt") as f_out:
@@ -68,7 +70,7 @@ def __setup_arg_parser():
         "--verbose", "-v", action="count", default=0,
         help="increase logging verbosity")
     parser.add_argument(
-        "--version", "-V", action="version", version=vquest.__version__)
+        "--version", "-V", action="version", version=__version__)
     parser.add_argument(
         "--align", "-a", action="store_true",
         help=("Instead of writing results to files, "
