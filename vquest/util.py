@@ -50,3 +50,11 @@ def airr_to_fasta(
             seq = seq or row[fallback_col]
         fasta += ">%s\n%s\n" % (row[seqid_col], seq)
     return fasta
+
+class VquestError(Exception):
+    """Vquest-related errors.  These can have one or more messages provided by the server."""
+
+    def __init__(self, message, server_messages=None):
+        self.message = message
+        self.server_messages = server_messages
+        super().__init__(self.message)

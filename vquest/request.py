@@ -1,25 +1,20 @@
-import sys
+"""
+Send requests to the IMGT/V-QUEST server.
+"""
+
 import time
 import logging
 from io import StringIO
 import requests
 from requests_html import HTML
 from Bio import SeqIO
-from .util import unzip, chunker
+from .util import unzip, chunker, VquestError
 
 LOGGER = logging.getLogger(__name__)
 
 URL = "http://www.imgt.org/IMGT_vquest/analysis"
 DELAY = 1 # for rate-limiting multiple requests
 CHUNK_SIZE = 50 # to stay within V-QUEST's limit on sequences in one go
-
-class VquestError(Exception):
-    """Vquest-related errors.  These can have one or more messages provided by the server."""
-
-    def __init__(self, message, server_messages=None):
-        self.message = message
-        self.server_messages = server_messages
-        super().__init__(self.message)
 
 def _parse_records(config):
     """Extract Seq records for sequences given in config"""
@@ -33,7 +28,13 @@ def _parse_records(config):
     return records
 
 def vquest(config):
-    """Submit a request to V-QUEST"""
+    """Submit a request to V-QUEST.
+
+    config should be a dictionary key/value pairs to use in the request.  See
+    data/options.yml for a full list, organized into sections.  Currently
+    resultType must be "excel" and xv_outputtype must be 3 (for "Download AIRR
+    formatted results").
+    """
     if not all([
         config.get("species"),
         config.get("receptorOrLocusType"),
@@ -41,7 +42,6 @@ def vquest(config):
         raise ValueError(
             "species, receptorOrLocusType, and fileSequences "
             "and/or sequences are required options")
-    # species, receptorOrLocusType, and either fileSequences or sequences
     supported = [("resultType", "excel"), ("xv_outputtype", 3)]
     if all([config.get(pair[0]) == pair[1] for pair in supported]):
         output = {}

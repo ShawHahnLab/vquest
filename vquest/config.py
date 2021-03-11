@@ -1,3 +1,7 @@
+"""
+Tools to manage configurations and default options.
+"""
+
 from pathlib import Path
 import logging
 import yaml
