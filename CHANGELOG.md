@@ -2,6 +2,10 @@
 
 ## dev
 
+### Changed
+
+ * Refactored top-level code into separate modules ([#13])
+
 ### Fixed
 
  * Avoid trying to import dependencies at install time ([#13])
