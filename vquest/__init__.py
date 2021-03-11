@@ -6,7 +6,6 @@ http://www.imgt.org/IMGT_vquest/analysis
 
 import logging
 from .version import __version__
-from .request import vquest, VquestError
 LOGGER = logging.getLogger(__name__)
 LOGGER.propagate = False
 LOGGER.addHandler(logging.StreamHandler())
