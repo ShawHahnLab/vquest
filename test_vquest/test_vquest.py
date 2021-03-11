@@ -15,8 +15,9 @@ from unittest.mock import Mock
 from contextlib import redirect_stdout, redirect_stderr
 from pathlib import Path
 from io import StringIO
-import vquest
-import vquest.__main__
+from vquest.request import vquest
+from vquest.util import VquestError
+from vquest.__main__ import main
 
 class TestVquestBase(unittest.TestCase):
     """Base class for supporting code.  No actual tests here."""
@@ -85,7 +86,7 @@ GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA
 GAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGGTACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCT
 ATGAGGTTTCCAACCGGGTCTCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC
 AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
-        result = vquest.vquest(config)
+        result = vquest(config)
         # requests.post should have been called once, with this input.
         self.assertEqual(self.post.call_count, 1)
         self.assertEqual(
@@ -145,7 +146,7 @@ CC
         config_path = str((self.path / "config.yml").resolve())
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
-            vquest.__main__.main([config_path])
+            main([config_path])
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
 
@@ -164,7 +165,7 @@ gacattgtgatgacccagactccactctccctgcccgtcacccctggagagccagcctccatctcctgcaggtctagtca
         with redirect_stdout(out), redirect_stderr(err):
             with tempfile.TemporaryDirectory() as tempdir:
                 os.chdir(tempdir)
-                vquest.__main__.main([config_path, "--align"])
+                main([config_path, "--align"])
                 self.assertFalse(Path("vquest_airr.tsv").exists())
                 self.assertFalse(Path("Parameters.txt").exists())
         self.assertEqual(out.getvalue(), expected)
@@ -177,7 +178,7 @@ class TestVquestEmpty(TestVquestSimple):
     def test_vquest(self):
         """Test that an empty config fails as expected."""
         with self.assertRaises(ValueError):
-            vquest.vquest({})
+            vquest({})
 
     def test_vquest_main(self):
         """Test how the command-line interface handles no arguments.
@@ -191,7 +192,7 @@ class TestVquestEmpty(TestVquestSimple):
             with self.assertRaises(SystemExit):
                 with tempfile.TemporaryDirectory() as tempdir:
                     os.chdir(tempdir)
-                    vquest.__main__.main([])
+                    main([])
         self.assertNotEqual(out.getvalue(), "")
         self.assertEqual(err.getvalue(), "")
 
@@ -206,7 +207,7 @@ class TestVquestEmpty(TestVquestSimple):
             with self.assertRaises(SystemExit):
                 with tempfile.TemporaryDirectory() as tempdir:
                     os.chdir(tempdir)
-                    vquest.__main__.main(["--align"])
+                    main(["--align"])
         self.assertNotEqual(out.getvalue(), "")
         self.assertEqual(err.getvalue(), "")
 
@@ -233,7 +234,7 @@ GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA
 GAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGGTACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCT
 ATGAGGTTTCCAACCGGGTCTCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC
 AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
-        result = vquest.vquest(config)
+        result = vquest(config)
         parameters = [("Date", "Wed Dec 02 19:18:14 CET 2020"),
         ("IMGT/V-QUEST program version", "3.5.21"),
         ("IMGT/V-QUEST reference directory release", "202049-2"),
@@ -272,7 +273,7 @@ AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
         config_path = str((self.path / "config.yml").resolve())
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
-            vquest.__main__.main(["--imgtrefdirset", "1", config_path])
+            main(["--imgtrefdirset", "1", config_path])
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
 
@@ -296,8 +297,8 @@ GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA
 GAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGGTACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCT
 ATGAGGTTTCCAACCGGGTCTCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC
 AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCTCC"""}
-        with self.assertRaises(vquest.VquestError) as context:
-            vquest.vquest(config)
+        with self.assertRaises(VquestError) as context:
+            vquest(config)
         self.assertEqual(
             context.exception.server_messages,
             ["The receptor type or locus is not available for this species"])

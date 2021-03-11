@@ -1,5 +1,17 @@
 # Changelog
 
+## dev
+
+### Changed
+
+ * Refactored top-level code into separate modules ([#13])
+
+### Fixed
+
+ * Avoid trying to import dependencies at install time ([#13])
+
+[#13]: https://github.com/ressy/vquest/pull/13
+
 ## 0.0.5 - 2021-03-10
 
 ### Added
