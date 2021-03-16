@@ -4,7 +4,8 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build-and-test:
+  # an attempt at a package-build job specifically
+  build:
     executor: python/default
     steps:
       - checkout
@@ -12,13 +13,36 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
+          command: python -m build
+          name: Build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+  test:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
           command: python -m unittest
           name: Test
       - run:
           command: python -m vquest -h
           name: Try CLI
+      - run:
+          command: pip install /tmp/workspace/dist/*.whl
+          name: Install from whl
 
 workflows:
   main:
     jobs:
-      - build-and-test
+      - build
+      - test:
+          requires:
+            - build
