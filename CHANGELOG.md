@@ -1,5 +1,13 @@
 # Changelog
 
+## dev
+
+### Fixed
+
+ * Removed a duplicate data directory from build/install process ([#16])
+
+[#16]: https://github.com/ressy/vquest/pull/16
+
 ## 0.0.6 - 2021-03-12
 
 ### Changed
