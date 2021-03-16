@@ -11,6 +11,9 @@ jobs:
       - checkout
       - python/load-cache
       - python/install-deps
+      - run:
+          command: python3 -m pip install --upgrade build
+          name: Install PyPA's build tool
       - python/save-cache
       - run:
           command: python -m build
