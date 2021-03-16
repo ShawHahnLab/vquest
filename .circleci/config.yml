@@ -42,7 +42,7 @@ jobs:
           command: pip install /tmp/workspace/dist/*.whl
           name: Install from whl
       - run:
-          command: vquest -h
+          command: which vquest && vquest -h
           name: Try installed CLI
 
 workflows:
