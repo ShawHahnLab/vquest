@@ -10,6 +10,9 @@ jobs:
       - checkout
       - python/load-cache
       - python/install-deps
+      - run:
+          command: python3 -m pip install --upgrade build
+          name: Install PyPA's build tool
       - python/save-cache
       - run:
           command: python -m unittest
@@ -17,6 +20,15 @@ jobs:
       - run:
           command: python -m vquest -h
           name: Try CLI
+      - run:
+          command: python -m build
+          name: Build
+      - run:
+          command: pip install dist/*.whl
+          name: Install from whl
+      - run:
+          command: which vquest && vquest -h
+          name: Try installed CLI
 
 workflows:
   main:
