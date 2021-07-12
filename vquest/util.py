@@ -22,7 +22,10 @@ def chunker(iterator, chunksize):
                 chunk = []
     except StopIteration:
         pass
-    yield chunk
+    # If the last chunk has items, yield that, but don't just yield an empty
+    # list.
+    if chunk:
+        yield chunk
 
 def unzip(txt):
     """Extract .zip data from bytes into dict keyed on filenames."""
