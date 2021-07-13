@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.8 - 2021-07-13
+
+### Fixed
+
+ * Don't include a trailing empty submission when submitting perfect multiples
+   of 50 sequences ([#19])
+
+[#19]: https://github.com/ressy/vquest/pull/19
+
 ## 0.0.7 - 2021-03-17
 
 ### Fixed
