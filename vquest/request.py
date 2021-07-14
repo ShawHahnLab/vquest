@@ -42,15 +42,15 @@ def vquest(config):
         raise ValueError(
             "species, receptorOrLocusType, and fileSequences "
             "and/or sequences are required options")
-    supported = [("resultType", "excel"), ("xv_outputtype", 3)]
-    if all([config.get(pair[0]) == pair[1] for pair in supported]):
-        output = {}
+    supported = [("resultType", ("excel", )), ("xv_outputtype", (1, 3))]
+    if all([config.get(pair[0]) in pair[1] for pair in supported]):
+        outputs = []
         records = _parse_records(config)
         if not records:
             raise ValueError("No sequences supplied")
         LOGGER.info("Starting request batch for %d sequences total", len(records))
         for chunk in chunker(records, CHUNK_SIZE):
-            if output:
+            if outputs:
                 time.sleep(DELAY)
             LOGGER.info("Sending request with %d sequences...", len(chunk))
             out_handle = StringIO()
@@ -66,16 +66,31 @@ def vquest(config):
                 errors = [div.text for div in html.find("div.form_error")]
                 if errors:
                     raise VquestError("; ".join(errors), errors)
-            response = unzip(response.content)
-            # Only keep one copy of the Parameters.txt data, but append rows
-            # (minus header) of vquest_airr.tsv together
-            if "Parameters.txt" not in output:
-                output["Parameters.txt"] = response["Parameters.txt"].decode()
-            if "vquest_airr.tsv" not in output:
-                output["vquest_airr.tsv"] = response["vquest_airr.tsv"].decode()
-            else:
-                airr = response["vquest_airr.tsv"].decode()
-                output["vquest_airr.tsv"] += "\n".join(airr.splitlines()[1:])
+            outputs.append(unzip(response.content))
+        # recombine output chunks
+        output = {}
+        for output_chunk in outputs:
+            if config["xv_outputtype"] == 3:
+                # Only keep one copy of the Parameters.txt data, but append rows
+                # (minus header) of vquest_airr.tsv together
+                if "Parameters.txt" not in output:
+                    output["Parameters.txt"] = output_chunk["Parameters.txt"].decode()
+                if "vquest_airr.tsv" not in output:
+                    output["vquest_airr.tsv"] = output_chunk["vquest_airr.tsv"].decode()
+                else:
+                    airr = output_chunk["vquest_airr.tsv"].decode()
+                    output["vquest_airr.tsv"] += "\n".join(airr.splitlines()[1:])
+            elif config["xv_outputtype"] == 1:
+                for item in output_chunk.keys():
+                    if item == "11_Parameters.txt":
+                        if item not in output:
+                            output[item] = output_chunk[item].decode()
+                    else:
+                        if item not in output:
+                            output[item] = output_chunk[item].decode()
+                        else:
+                            txt = output_chunk[item].decode()
+                            output[item] += "\n".join(txt.splitlines()[1:])
         return output
     needed = " ".join([pair[0] + "=" + str(pair[1]) for pair in supported])
     observed = " ".join([pair[0] + "=" + str(config.get(pair[0])) for pair in supported])

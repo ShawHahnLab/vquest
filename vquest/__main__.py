@@ -53,12 +53,10 @@ def main(arglist=None):
         LOGGER.info("Writing FASTA to stdout")
         print(airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
-        LOGGER.info("Writing vquest_airr.tsv")
-        with open("vquest_airr.tsv", "wt") as f_out:
-            f_out.write(output["vquest_airr.tsv"])
-        LOGGER.info("Writing Parameters.txt")
-        with open("Parameters.txt", "wt") as f_out:
-            f_out.write(output["Parameters.txt"])
+        for key in output:
+            LOGGER.info("Writing %s", key)
+            with open(key, "wt") as f_out:
+                f_out.write(output[key])
     LOGGER.info("Done.")
 
 def __setup_arg_parser():
