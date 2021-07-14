@@ -2,6 +2,15 @@
 
 ## dev
 
+### Added
+
+ * `--outdir` argument to set output directory other than current working
+   directory ([#24])
+
+[#24]: https://github.com/ressy/vquest/pull/24
+
+## 0.0.8 - 2021-07-13
+
 ### Fixed
 
  * Don't include a trailing empty submission when submitting perfect multiples

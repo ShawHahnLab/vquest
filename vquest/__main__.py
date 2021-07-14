@@ -5,6 +5,7 @@ Command-line interface for vquest
 import sys
 import logging
 import argparse
+from pathlib import Path
 import vquest
 from vquest import LOGGER
 from . import request
@@ -54,10 +55,11 @@ def main(arglist=None):
         print(airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
         LOGGER.info("Writing vquest_airr.tsv")
-        with open("vquest_airr.tsv", "wt") as f_out:
+        args.outdir.mkdir(parents=True, exist_ok=True)
+        with open(args.outdir / "vquest_airr.tsv", "wt") as f_out:
             f_out.write(output["vquest_airr.tsv"])
         LOGGER.info("Writing Parameters.txt")
-        with open("Parameters.txt", "wt") as f_out:
+        with open(args.outdir / "Parameters.txt", "wt") as f_out:
             f_out.write(output["Parameters.txt"])
     LOGGER.info("Done.")
 
@@ -71,6 +73,8 @@ def __setup_arg_parser():
         help="increase logging verbosity")
     parser.add_argument(
         "--version", "-V", action="version", version=__version__)
+    parser.add_argument(
+        "--outdir", "-o", default=".", type=Path, help="directory for output files (. by default)")
     parser.add_argument(
         "--align", "-a", action="store_true",
         help=("Instead of writing results to files, "
