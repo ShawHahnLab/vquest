@@ -45,7 +45,7 @@
 
 ### Added
 
- * `--align` argument (via `airr_to_fasta` function) for exraction of sequence
+ * `--align` argument (via `airr_to_fasta` function) for extraction of sequence
    alignment FASTA from AIRR results ([#1])
  * Error messages sent by the server are now raised as an exception containing
    the server-provided message(s) ([#7])
