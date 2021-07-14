@@ -6,7 +6,10 @@
 
  * `--outdir` argument to set output directory other than current working
    directory ([#24])
+ * `--no-collapse` argument (and updates to `request` function) to disable
+   automatic combining of results across batched submissions ([#25])
 
+[#25]: https://github.com/ressy/vquest/pull/25
 [#24]: https://github.com/ressy/vquest/pull/24
 
 ## 0.0.8 - 2021-07-13
