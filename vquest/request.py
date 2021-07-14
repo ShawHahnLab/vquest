@@ -27,13 +27,20 @@ def _parse_records(config):
             records.extend(list(SeqIO.parse(f_in, "fasta")))
     return records
 
-def vquest(config):
+def vquest(config, collapse=True):
     """Submit a request to V-QUEST.
 
     config should be a dictionary key/value pairs to use in the request.  See
     data/options.yml for a full list, organized into sections.  Currently
     resultType must be "excel" and xv_outputtype must be 3 (for "Download AIRR
     formatted results").
+
+    sequences are batched into sets of 50 (the most allowed by V-QUEST) and
+    submitted one batch at a time.  If collapse is True, results are combined
+    as though they were submitted and processed as a single request, and a
+    dictionary of file names to text contents is returned.  If collapse is
+    False, a list of dictionaries is returned, one for each batch, storing raw
+    byte contents.
     """
     if not all([
         config.get("species"),
@@ -44,13 +51,13 @@ def vquest(config):
             "and/or sequences are required options")
     supported = [("resultType", "excel"), ("xv_outputtype", 3)]
     if all([config.get(pair[0]) == pair[1] for pair in supported]):
-        output = {}
+        outputs = []
         records = _parse_records(config)
         if not records:
             raise ValueError("No sequences supplied")
         LOGGER.info("Starting request batch for %d sequences total", len(records))
         for chunk in chunker(records, CHUNK_SIZE):
-            if output:
+            if outputs:
                 time.sleep(DELAY)
             LOGGER.info("Sending request with %d sequences...", len(chunk))
             out_handle = StringIO()
@@ -66,17 +73,25 @@ def vquest(config):
                 errors = [div.text for div in html.find("div.form_error")]
                 if errors:
                     raise VquestError("; ".join(errors), errors)
-            response = unzip(response.content)
-            # Only keep one copy of the Parameters.txt data, but append rows
-            # (minus header) of vquest_airr.tsv together
-            if "Parameters.txt" not in output:
-                output["Parameters.txt"] = response["Parameters.txt"].decode()
-            if "vquest_airr.tsv" not in output:
-                output["vquest_airr.tsv"] = response["vquest_airr.tsv"].decode()
-            else:
-                airr = response["vquest_airr.tsv"].decode()
-                output["vquest_airr.tsv"] += "\n".join(airr.splitlines()[1:])
-        return output
+            outputs.append(unzip(response.content))
+        if not collapse:
+            return outputs
+        return _collapse_outputs(outputs)
     needed = " ".join([pair[0] + "=" + str(pair[1]) for pair in supported])
     observed = " ".join([pair[0] + "=" + str(config.get(pair[0])) for pair in supported])
     raise NotImplementedError(("Only " + needed + " currently supported, not " + observed))
+
+def _collapse_outputs(outputs):
+    """Combine batched output dictionaries into one."""
+    output = {}
+    for output_chunk in outputs:
+        # Only keep one copy of the Parameters.txt data, but append rows
+        # (minus header) of vquest_airr.tsv together
+        if "Parameters.txt" not in output:
+            output["Parameters.txt"] = output_chunk["Parameters.txt"].decode()
+        if "vquest_airr.tsv" not in output:
+            output["vquest_airr.tsv"] = output_chunk["vquest_airr.tsv"].decode()
+        else:
+            airr = output_chunk["vquest_airr.tsv"].decode()
+            output["vquest_airr.tsv"] += "\n".join(airr.splitlines()[1:])
+    return output

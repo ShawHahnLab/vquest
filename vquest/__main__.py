@@ -22,6 +22,12 @@ def main(arglist=None):
     else:
         args = parser.parse_args(arglist)
     LOGGER.setLevel(max(10, logging.WARNING - 10*args.verbose))
+    config_full = __setup_config(args, parser)
+    output = request.vquest(config_full, collapse=args.collapse)
+    __process_output(args, output)
+    LOGGER.info("Done.")
+
+def __setup_config(args, parser):
     args_set = {k: v for k, v in vars(args).items() if v is not None}
     # All the possible vquest options.  They're grouped by section as the keys
     # to inner dictionaries.
@@ -49,19 +55,28 @@ def main(arglist=None):
     LOGGER.debug("final config: %s",
         " ".join(["%s=%s" % (key, val) for key, val in config_full.items()]))
     LOGGER.info("Configuration prepared")
-    output = request.vquest(config_full)
+    return config_full
+
+def __process_output(args, output):
     if args.align:
         LOGGER.info("Writing FASTA to stdout")
         print(airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
-        LOGGER.info("Writing vquest_airr.tsv")
-        args.outdir.mkdir(parents=True, exist_ok=True)
-        with open(args.outdir / "vquest_airr.tsv", "wt") as f_out:
-            f_out.write(output["vquest_airr.tsv"])
-        LOGGER.info("Writing Parameters.txt")
-        with open(args.outdir / "Parameters.txt", "wt") as f_out:
-            f_out.write(output["Parameters.txt"])
-    LOGGER.info("Done.")
+        if args.collapse:
+            for key in output:
+                output_path = args.outdir / key
+                LOGGER.info("Writing %s", output_path)
+                with open(output_path, "wt") as f_out:
+                    f_out.write(output[key])
+        else:
+            for idx, chunk in enumerate(output):
+                chunkdir = str(idx + 1).zfill(3)
+                (args.outdir / chunkdir).mkdir(parents=True, exist_ok=True)
+                for key in chunk:
+                    output_path = args.outdir / chunkdir / key
+                    LOGGER.info("Writing %s", output_path)
+                    with open(output_path, "wb") as f_out:
+                        f_out.write(chunk[key])
 
 def __setup_arg_parser():
     parser = argparse.ArgumentParser(
@@ -75,6 +90,13 @@ def __setup_arg_parser():
         "--version", "-V", action="version", version=__version__)
     parser.add_argument(
         "--outdir", "-o", default=".", type=Path, help="directory for output files (. by default)")
+    # https://stackoverflow.com/a/52403318/4499968
+    parser.add_argument(
+        "--collapse", default=True, action="store_true",
+        help="collapse batches of results into unified output files (the default)")
+    parser.add_argument(
+        "--no-collapse", dest="collapse", action="store_false",
+        help="write separate files for each batch of results")
     parser.add_argument(
         "--align", "-a", action="store_true",
         help=("Instead of writing results to files, "

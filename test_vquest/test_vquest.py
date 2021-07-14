@@ -140,6 +140,13 @@ CC
         deletions = result["vquest_airr.tsv"].splitlines()[1].split("\t")[123]
         self.assertEqual(seq_analysis_cat, "1 (noindelsearch)")
         self.assertEqual(deletions, "")
+        # Also try with collapse=False, for raw output
+        result = vquest(config, collapse=False)
+        self.assertEqual(self.post.call_count, 2)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(
+            list(result[0].keys()),
+            ["Parameters.txt", "vquest_airr.tsv"])
 
     def test_vquest_main(self):
         """Test that the command-line interface gives the expected response."""
@@ -149,6 +156,12 @@ CC
             main([config_path])
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
+        # also test with the raw output enabled
+        with tempfile.TemporaryDirectory() as tempdir:
+            os.chdir(tempdir)
+            main(["--no-collapse", config_path])
+            self.assertTrue(Path("001/vquest_airr.tsv").exists())
+            self.assertTrue(Path("001/Parameters.txt").exists())
 
     def test_vquest_main_alignment(self):
         """Try using the --align feature.
