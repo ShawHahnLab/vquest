@@ -1,6 +1,6 @@
 species: rhesus-monkey
 receptorOrLocusType: IG
-v_regionsearchindel: true
+V_REGIONsearchIndel: true
 sequences: |
   >IGKV2-ACR*02
   GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA

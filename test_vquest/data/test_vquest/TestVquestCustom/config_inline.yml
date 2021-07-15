@@ -1,6 +1,6 @@
 species: rhesus-monkey
 receptorOrLocusType: IG
-v_regionsearchindel: true
+V_REGIONsearchIndel: true
 resultType: excel
 xv_outputtype: 3
 sequences: |
