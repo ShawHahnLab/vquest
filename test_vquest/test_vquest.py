@@ -7,8 +7,8 @@ sent as expected and that the response from the web server would be parsed
 correctly.
 
 If SEND_POST_REQS is set to True, the actual POST requests will be sent to IMGT
-and each response will be stored in a from-imgt.dat file in each test class'
-associated directory.
+and each response will be stored in a from-imgt.<name of test>.dat file in each
+test class' associated directory.
 """
 
 import sys
@@ -82,7 +82,8 @@ class TestVquestBase(unittest.TestCase):
         if SEND_POST_REQS:
             def actual_post_wrapper(*args, **kwargs):
                 response = reqs.post_real(*args, **kwargs)
-                with open(self.path / "from-imgt.dat", "wb") as f_out:
+                testid = self.id().split(".")[-1]
+                with open(self.path / f"from-imgt.{testid}.dat", "wb") as f_out:
                     f_out.write(response.content)
                 return DEFAULT
             reqs.post = Mock(
