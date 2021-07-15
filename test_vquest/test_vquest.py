@@ -5,6 +5,10 @@ These replace requests.post with a Mock object so nothing actually gets sent
 out over the network.  Instead we just test that HTTP POST rqeuests *would* be
 sent as expected and that the response from the web server would be parsed
 correctly.
+
+If SEND_POST_REQS is set to True, the actual POST requests will be sent to IMGT
+and each response will be stored in a from-imgt.dat file in each test class'
+associated directory.
 """
 
 import sys
@@ -213,6 +217,8 @@ class TestVquestEmpty(TestVquestSimple):
     def test_vquest_no_collapse(self):
         self.check_missing_defaults(lambda: vquest(self.config, collapse=False))
 
+    # this requires a fix in __setup_config to intercept and filter None
+    # objects in the config list.
     @unittest.expectedFailure
     def test_vquest_main(self):
         self.check_missing_defaults(lambda: main([str(self.path / "config.yml")]))
