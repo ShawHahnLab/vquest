@@ -1,6 +1,7 @@
 species: rhesus-monkey
-receptorOrLocusType: IG
-V_REGIONsearchIndel: true
+receptorOrLocusType: antibody # not valid!
+resultType: excel
+xv_outputtype: 3
 sequences: |
   >IGKV2-ACR*02
   GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA

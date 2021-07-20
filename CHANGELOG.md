@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.0.9 - 2021-07-20
+
+### Added
+
+ * `--outdir` argument to set output directory other than current working
+   directory ([#24])
+ * `--no-collapse` argument (and updates to `request` function) to disable
+   automatic combining of results across batched submissions ([#25])
+
+### Fixed
+
+ * Empty config files now result in the usual error message about required
+   options ([#30])
+ * All command-line options now match V-QUEST option names ([#28])
+
+[#30]: https://github.com/ressy/vquest/pull/30
+[#28]: https://github.com/ressy/vquest/pull/28
+[#25]: https://github.com/ressy/vquest/pull/25
+[#24]: https://github.com/ressy/vquest/pull/24
+
 ## 0.0.8 - 2021-07-13
 
 ### Fixed
@@ -33,7 +53,7 @@
 
 ### Added
 
- * `--align` argument (via `airr_to_fasta` function) for exraction of sequence
+ * `--align` argument (via `airr_to_fasta` function) for extraction of sequence
    alignment FASTA from AIRR results ([#1])
  * Error messages sent by the server are now raised as an exception containing
    the server-provided message(s) ([#7])
