@@ -218,9 +218,6 @@ class TestVquestEmpty(TestVquestSimple):
     def test_vquest_no_collapse(self):
         self.check_missing_defaults(lambda: vquest(self.config, collapse=False))
 
-    # this requires a fix in __setup_config to intercept and filter None
-    # objects in the config list.
-    @unittest.expectedFailure
     def test_vquest_main(self):
         self.check_missing_defaults(lambda: main([str(self.path / "config.yml")]))
 

@@ -46,9 +46,12 @@ def __setup_config(args, parser):
     # given as command line arguments
     configs = [load_config(config) for config in args.config]
     for filename, config in zip(args.config, configs):
-        LOGGER.debug("options via %s: %s",
-            filename,
-            " ".join(["%s=%s" % (key, val) for key, val in config.items()]))
+        if config:
+            msg = " ".join(["%s=%s" % (key, val) for key, val in config.items()])
+        else:
+            msg = "(empty config)"
+        LOGGER.debug("options via %s: %s", filename, msg)
+    configs = [config for config in configs if config]
     LOGGER.debug("overriding command-line options: %s",
         " ".join(["%s=%s" % (key, val) for key, val in vquest_args.items()]))
     config_full = layer_configs(DEFAULTS, *configs, vquest_args)
