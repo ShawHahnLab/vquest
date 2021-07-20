@@ -65,6 +65,7 @@ def __process_output(args, output):
         LOGGER.info("Writing FASTA to stdout")
         print(airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
+        args.outdir.mkdir(parents=True, exist_ok=True)
         if args.collapse:
             for key in output:
                 output_path = args.outdir / key
