@@ -100,99 +100,99 @@
 - section: Detailed view
   description: Options specific to the "Detailed view" output mode.  See also "Synthesis view" and "Excel file".
   options:
-    dv_d_genealignment:
+    dv_D_GENEalignment:
       description: alignment for d-gene
       values: bool
-    dv_imgtautomat:
+    dv_IMGTAutomat:
       description: annotation by imgt/automat
       values: bool
-    dv_imgtcollierdeperles:
+    dv_IMGTCollierdePerles:
       description: '0: link to imgt/collier-de-perles tool; 1: imgt/collier de perles
         (for a nb of sequences < 5); 2: no imgt/collier-de-perles'
       values:
       - 0
       - 1
       - 2
-    dv_imgtgappedvdjseq:
+    dv_IMGTgappedVDJseq:
       description: sequences of v-, v-j- or v-d-j- region ('nt' and 'aa') with gaps in
         fasta and access to imgt/phylogene for v-region ('nt')
       values: bool
-    dv_imgtjctaresults:
+    dv_IMGTjctaResults:
       description: results of imgt/junctionanalysis
       values: bool
-    dv_junctionseq:
+    dv_JUNCTIONseq:
       description: sequence of the junction ('nt' and 'aa')
       values: bool
-    dv_j_genealignment:
+    dv_J_GENEalignment:
       description: alignment for j-gene
       values: bool
-    dv_v_genealignment:
+    dv_V_GENEalignment:
       description: alignment for v-gene
       values: bool
-    dv_v_regionalignment:
+    dv_V_REGIONalignment:
       description: v-region alignment
       values: bool
-    dv_v_regionhotspots:
+    dv_V_REGIONhotspots:
       description: v-region mutation hotspots
       values: bool
-    dv_v_regionmutstats:
+    dv_V_REGIONmutstats:
       description: v-region mutation and aa change statistics
       values: bool
-    dv_v_regionmuttable:
+    dv_V_REGIONmuttable:
       description: v-region mutation and aa change table
       values: bool
-    dv_v_regionprotdisplay:
+    dv_V_REGIONprotdisplay:
       description: v-region protein display
       values: bool
-    dv_v_regiontranlation:
+    dv_V_REGIONtranlation:
       description: v-region translation
       values: bool
-    dv_eligibled_gene:
+    dv_eligibleD_GENE:
       description: '... with full list of eligible d-gene'
       values: bool
 - section: Synthesis view
   description: Options specific to the "Synthesis view" output mode.  See also "Detailed view" and "Excel file".
   options:
-    sv_imgtjctaresults:
+    sv_IMGTjctaResults:
       description: results of imgt/junctionanalysis
       values: bool
-    sv_v_genealignment:
+    sv_V_GENEalignment:
       description: alignment for v-gene
       values: bool
-    sv_v_regionalignment:
+    sv_V_REGIONalignment:
       description: v-region alignment
       values: bool
-    sv_v_regionfrequentaa:
+    sv_V_REGIONfrequentAA:
       description: v-region most frequently occurring aa
       values: bool
-    sv_v_regionprotdisplay:
+    sv_V_REGIONprotdisplay:
       description: v-region protein display
       values: bool
-    sv_v_regionprotdisplay2:
+    sv_V_REGIONprotdisplay2:
       description: v-region protein display (with aa class colors)
       values: bool
-    sv_v_regionprotdisplay3:
+    sv_V_REGIONprotdisplay3:
       description: v-region protein display (only aa changes displayed)
       values: bool
-    sv_v_regiontranslation:
+    sv_V_REGIONtranslation:
       description: v-region translation
       values: bool
 - section: Excel file
   description: Options specific to the "Excel file" output mode.  See also "Detailed view" and "Synthesis view".
   options:
-    xv_aaseq:
+    xv_AAseq:
       description: aa-sequences
       values: bool
-    xv_imgtgappedaa:
+    xv_IMGTgappedAA:
       description: imgt-gapped-aa-sequences
       values: bool
-    xv_imgtgappednt:
+    xv_IMGTgappedNt:
       description: imgt-gapped-nt-sequences
       values: bool
-    xv_junction:
+    xv_JUNCTION:
       description: junction
       values: bool
-    xv_v_regionhotspots:
+    xv_V_REGIONhotspots:
       description: v-region-mutation-hotspots
       values: bool
     xv_V_REGIONmutstatsAA:
@@ -223,40 +223,40 @@
 - section: Advanced
   description: Output options grouped under "Advanced parameters" and "Advanced functionalities".
   options:
-    imgtrefdiralleles:
+    IMGTrefdirAlleles:
       description: 'true: with all alleles; false: with allele *01 only'
       values: bool
-    imgtrefdirset:
+    IMGTrefdirSet:
       description: 'selection of imgt reference directory set; 0: f+orf; 1: f+orf+ in-frame
         p; 2: f+orf including orphons; 3: f+orf+ in-frame p including orphons'
       values: [0, 1, 2, 3]
-    v_regionsearchindel:
+    V_REGIONsearchIndel:
       description: search for insertions and deletions in v-region
       values: bool
-    cllsubsetsearch:
+    cllSubsetSearch:
       description: 'clinical application: search for cll subsets #2 and #8'
       values: bool
     scfv:
       description: ''
       values: bool
-    nb3v_regionaddednt:
+    nb3V_REGIONaddedNt:
       description: nb of nucleotides to add (or exclude) in 3' of the v-region for theevaluation
         of the alignment score (in results 1)
       values: int
-    nb5v_regionignorednt:
+    nb5V_REGIONignoredNt:
       description: nb of nucleotides to exclude in 5' of the v-region for the evaluation
         ofthe nb of mutations (in results 9 and 10)
       values: int
-    nbd_gene:
+    nbD_GENE:
       description: nb of accepted d-gene in igh (default is 1), trb (default is 1) or
         trd (default is 3) junction; specify -1 for the appropriate default
       values: [-1, 0, 1, 2, 3]
-    nbdmut:
+    nbDmut:
       description: nb of accepted mutations in d-region. Specify -1 for the appropriate default
       values: [-1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    nbjmut:
+    nbJmut:
       description: nb of accepted mutations in 5'j-region. Specify -1 for the appropriate default
       values: [-1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    nbvmut:
+    nbVmut:
       description: nb of accepted mutations in 3'v-region. Specify -1 for the appropriate default
       values: [-1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10]

@@ -255,7 +255,7 @@ class TestVquestCustom(TestVquestSimple):
         """Try an extra argument given as though on the command line."""
         with tempfile.TemporaryDirectory() as tempdir:
             os.chdir(tempdir)
-            main(["--imgtrefdirset", "1", str(self.path / "config.yml")])
+            main(["--IMGTrefdirSet", "1", str(self.path / "config.yml")])
             self.assertTrue(Path("vquest_airr.tsv").exists())
             self.assertTrue(Path("Parameters.txt").exists())
 

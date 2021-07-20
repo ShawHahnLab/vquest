@@ -9,6 +9,11 @@
  * `--no-collapse` argument (and updates to `request` function) to disable
    automatic combining of results across batched submissions ([#25])
 
+### Fixed
+
+ * All command-line options now match V-QUEST option names ([#28])
+
+[#28]: https://github.com/ressy/vquest/pull/28
 [#25]: https://github.com/ressy/vquest/pull/25
 [#24]: https://github.com/ressy/vquest/pull/24
 
