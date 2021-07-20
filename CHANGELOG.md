@@ -11,8 +11,11 @@
 
 ### Fixed
 
+ * Empty config files now result in the usual error message about required
+   options ([#30])
  * All command-line options now match V-QUEST option names ([#28])
 
+[#30]: https://github.com/ressy/vquest/pull/30
 [#28]: https://github.com/ressy/vquest/pull/28
 [#25]: https://github.com/ressy/vquest/pull/25
 [#24]: https://github.com/ressy/vquest/pull/24
