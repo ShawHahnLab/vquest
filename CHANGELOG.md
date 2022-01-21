@@ -1,5 +1,13 @@
 # Changelog
 
+## dev
+
+### Fixed
+
+ * Requests to the IMGT server now use HTTPS ([#34])
+
+[#34]: https://github.com/ressy/vquest/pull/34
+
 ## 0.0.9 - 2021-07-20
 
 ### Added

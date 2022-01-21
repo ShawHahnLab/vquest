@@ -12,7 +12,7 @@ from .util import unzip, chunker, VquestError
 
 LOGGER = logging.getLogger(__name__)
 
-URL = "http://www.imgt.org/IMGT_vquest/analysis"
+URL = "https://www.imgt.org/IMGT_vquest/analysis"
 DELAY = 1 # for rate-limiting multiple requests
 CHUNK_SIZE = 50 # to stay within V-QUEST's limit on sequences in one go
 
