@@ -111,7 +111,7 @@ class TestVquestSimple(TestVquestBase):
         self.assertEqual(self.post.call_count, 1)
         self.assertEqual(
             self.post.call_args.args,
-            ('http://www.imgt.org/IMGT_vquest/analysis', ))
+            ('https://www.imgt.org/IMGT_vquest/analysis', ))
         config_used = self.config.copy()
         # Whatever input type was given the actual type submitted to the form
         # will be "inline" to allow chunking of sequences if needed.  The
@@ -274,7 +274,7 @@ class TestVquestInvalid(TestVquestBase):
         self.assertEqual(self.post.call_count, 1)
         self.assertEqual(
             self.post.call_args.args,
-            ('http://www.imgt.org/IMGT_vquest/analysis', ))
+            ('https://www.imgt.org/IMGT_vquest/analysis', ))
 
     def test_vquest_main(self):
         """Test that an html file with an error message is parsed correctly for cmd-line usage."""
