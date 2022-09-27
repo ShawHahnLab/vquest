@@ -23,7 +23,7 @@ Here the aligned FASTA text is printed directly to standard output.
 
 Example Python usage:
 
-    >>> from vquest import *
+    >>> from vquest.vq import *
     >>> config = layer_configs(DEFAULTS, {"species": "rhesus-monkey", "receptorOrLocusType": "IG", "fileSequences": "seqs.fasta"})
     >>> result = vquest(config)
     >>> result.keys()
