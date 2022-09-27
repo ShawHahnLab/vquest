@@ -6,9 +6,9 @@ import sys
 import logging
 import argparse
 from pathlib import Path
-import vquest
+from vquest import __doc__ as main_doc
 from vquest import LOGGER
-from . import request
+from .request import vquest
 from .config import DEFAULTS, OPTIONS, load_config, layer_configs
 from .util import airr_to_fasta
 from .version import __version__
@@ -23,7 +23,7 @@ def main(arglist=None):
         args = parser.parse_args(arglist)
     LOGGER.setLevel(max(10, logging.WARNING - 10*args.verbose))
     config_full = __setup_config(args, parser)
-    output = request.vquest(config_full, collapse=args.collapse)
+    output = vquest(config_full, collapse=args.collapse)
     __process_output(args, output)
     LOGGER.info("Done.")
 
@@ -84,7 +84,7 @@ def __process_output(args, output):
 
 def __setup_arg_parser():
     parser = argparse.ArgumentParser(
-        description=vquest.__doc__,
+        description=main_doc,
         formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("config", nargs="*", help="YAML configuration file")
     parser.add_argument(
