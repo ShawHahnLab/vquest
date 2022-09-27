@@ -1,6 +1,6 @@
 # Automate IMGT V-QUEST usage on imgt.org
 
-[![vquest](https://circleci.com/gh/shawhahnlab/vquest.svg?style=shield)](https://circleci.com/gh/shawhahnlab/vquest)
+[![vquest](https://circleci.com/gh/ShawHahnLab/vquest.svg?style=shield)](https://circleci.com/gh/ShawHahnLab/vquest)
 
 [IMGT](http://imgt.org)'s [V-QUEST](http://www.imgt.org/IMGT_vquest/analysis)
 is only available via a web interface.  This Python package automates V-QUEST
