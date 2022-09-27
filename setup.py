@@ -12,7 +12,7 @@ setuptools.setup(
     description="Automate IMGT V-QUEST usage on imgt.org",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ressy/vquest",
+    url="https://github.com/shawhahnlab/vquest",
     packages=setuptools.find_packages(),
     package_data={"vquest": ["data/*"]},
     entry_points={"console_scripts": [
