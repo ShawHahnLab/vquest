@@ -5,6 +5,7 @@ Send requests to the IMGT/V-QUEST server.
 import time
 import logging
 from io import StringIO
+from pathlib import Path
 import requests
 from requests_html import HTML
 from Bio import SeqIO
@@ -16,15 +17,34 @@ URL = "https://www.imgt.org/IMGT_vquest/analysis"
 DELAY = 1 # for rate-limiting multiple requests
 CHUNK_SIZE = 50 # to stay within V-QUEST's limit on sequences in one go
 
+EXTS = {
+    ".fasta": "fasta",
+    ".fa": "fasta",
+    ".fna": "fasta",
+    ".fastq": "fastq",
+    ".fq": "fastq"}
+
 def _parse_records(config):
     """Extract Seq records for sequences given in config"""
     records = []
     if "sequences" in config and config["sequences"]:
+        if config["sequences"].startswith("@"):
+            fmt = "fastq"
+        elif config["sequences"].startswith(">"):
+            fmt = "fasta"
+        else:
+            raise ValueError("Sequence format not recognized")
         with StringIO(config["sequences"]) as seqs_stream:
-            records.extend(list(SeqIO.parse(seqs_stream, "fasta")))
+            records.extend(list(SeqIO.parse(seqs_stream, fmt)))
     if "fileSequences" in config and config["fileSequences"]:
-        with open(config["fileSequences"]) as f_in:
-            records.extend(list(SeqIO.parse(f_in, "fasta")))
+        path = Path(config["fileSequences"])
+        ext = path.suffix.lower()
+        try:
+            fmt = EXTS[ext]
+        except KeyError as err:
+            raise ValueError(f"File format not recognized for {path}") from err
+        with open(path) as f_in:
+            records.extend(list(SeqIO.parse(f_in, fmt)))
     return records
 
 def vquest(config, collapse=True):
