@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.0.10 - 2022-10-11
+
+### Added
+
+ * FASTQ support ([#37])
+
+### Changed
+
+ * Repository now at <https://github.com/ShawHahnLab/vquest> ([#36])
+
+### Fixed
+
+ * Usage example now matches packaged structure ([#36])
+ * Requests to the IMGT server now use HTTPS ([#34])
+
+[#37]: https://github.com/ShawHahnLab/vquest/pull/37
+[#36]: https://github.com/ShawHahnLab/vquest/pull/36
+[#34]: https://github.com/ressy/vquest/pull/34
+
 ## 0.0.9 - 2021-07-20
 
 ### Added

@@ -6,12 +6,9 @@ import sys
 import logging
 import argparse
 from pathlib import Path
-import vquest
+from vquest import __doc__ as main_doc
 from vquest import LOGGER
-from . import request
-from .config import DEFAULTS, OPTIONS, load_config, layer_configs
-from .util import airr_to_fasta
-from .version import __version__
+from vquest import vq
 
 def main(arglist=None):
     """Command-line interface for V-QUEST requests"""
@@ -23,7 +20,7 @@ def main(arglist=None):
         args = parser.parse_args(arglist)
     LOGGER.setLevel(max(10, logging.WARNING - 10*args.verbose))
     config_full = __setup_config(args, parser)
-    output = request.vquest(config_full, collapse=args.collapse)
+    output = vq.vquest(config_full, collapse=args.collapse)
     __process_output(args, output)
     LOGGER.info("Done.")
 
@@ -32,7 +29,7 @@ def __setup_config(args, parser):
     # All the possible vquest options.  They're grouped by section as the keys
     # to inner dictionaries.
     vquest_opts = []
-    for opt_section in OPTIONS:
+    for opt_section in vq.OPTIONS:
         vquest_opts.extend(opt_section["options"].keys())
     vquest_args = {k: v for k, v in args_set.items() if k in vquest_opts}
     # If no config file(s) and no vquest args were given, just print the help
@@ -44,7 +41,7 @@ def __setup_config(args, parser):
         " ".join(["%s=%s" % (key, val) for key, val in args_set.items()]))
     # Overlay the default config, configs given as files, and then options
     # given as command line arguments
-    configs = [load_config(config) for config in args.config]
+    configs = [vq.load_config(config) for config in args.config]
     for filename, config in zip(args.config, configs):
         if config:
             msg = " ".join(["%s=%s" % (key, val) for key, val in config.items()])
@@ -54,7 +51,7 @@ def __setup_config(args, parser):
     configs = [config for config in configs if config]
     LOGGER.debug("overriding command-line options: %s",
         " ".join(["%s=%s" % (key, val) for key, val in vquest_args.items()]))
-    config_full = layer_configs(DEFAULTS, *configs, vquest_args)
+    config_full = vq.layer_configs(vq.DEFAULTS, *configs, vquest_args)
     LOGGER.debug("final config: %s",
         " ".join(["%s=%s" % (key, val) for key, val in config_full.items()]))
     LOGGER.info("Configuration prepared")
@@ -63,7 +60,7 @@ def __setup_config(args, parser):
 def __process_output(args, output):
     if args.align:
         LOGGER.info("Writing FASTA to stdout")
-        print(airr_to_fasta(output["vquest_airr.tsv"]), end="")
+        print(vq.airr_to_fasta(output["vquest_airr.tsv"]), end="")
     else:
         args.outdir.mkdir(parents=True, exist_ok=True)
         if args.collapse:
@@ -84,14 +81,14 @@ def __process_output(args, output):
 
 def __setup_arg_parser():
     parser = argparse.ArgumentParser(
-        description=vquest.__doc__,
+        description=main_doc,
         formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("config", nargs="*", help="YAML configuration file")
     parser.add_argument(
         "--verbose", "-v", action="count", default=0,
         help="increase logging verbosity")
     parser.add_argument(
-        "--version", "-V", action="version", version=__version__)
+        "--version", "-V", action="version", version=vq.__version__)
     parser.add_argument(
         "--outdir", "-o", default=".", type=Path, help="directory for output files (. by default)")
     # https://stackoverflow.com/a/52403318/4499968
@@ -108,7 +105,7 @@ def __setup_arg_parser():
             "from AIRR results and print as FASTA.  "
             "If there is no text in the sequence_alignment column "
             "for a given sequence the original sequence is used instead."))
-    for opt_section in OPTIONS:
+    for opt_section in vq.OPTIONS:
         option_parser = parser.add_argument_group(
             title="V-QUEST options: \"%s\" section" % opt_section["section"],
             description=opt_section["description"])

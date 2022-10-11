@@ -111,7 +111,7 @@ class TestVquestSimple(TestVquestBase):
         self.assertEqual(self.post.call_count, 1)
         self.assertEqual(
             self.post.call_args.args,
-            ('http://www.imgt.org/IMGT_vquest/analysis', ))
+            ('https://www.imgt.org/IMGT_vquest/analysis', ))
         config_used = self.config.copy()
         # Whatever input type was given the actual type submitted to the form
         # will be "inline" to allow chunking of sequences if needed.  The
@@ -236,6 +236,114 @@ class TestVquestEmpty(TestVquestSimple):
         self.check_missing_defaults_main(lambda: main(["--align"]))
 
 
+class TestVquestFasta(TestVquestBase):
+    """File-based input with FASTA."""
+
+    def setUp(self):
+        super().setUp()
+        self.input_path = self.path/"seqs.fasta"
+        del self.config["sequences"]
+        self.config["fileSequences"] = self.input_path
+
+    def test_vquest(self):
+        """Test that a basic request gives the expected response."""
+        result = vquest(self.config)
+        # requests.post should have been called once, with this input.
+        self.assertEqual(self.post.call_count, 1)
+        self.assertEqual(
+            self.post.call_args.args,
+            ('https://www.imgt.org/IMGT_vquest/analysis', ))
+        config_used = self.config.copy()
+        # Whatever input type was given the actual type submitted to the form
+        # will be "inline" to allow chunking of sequences if needed.  The
+        # sequences are also reformatted via Biopython when chunked.
+        config_used["inputType"] = "inline"
+        config_used["sequences"] = """>IGKV2-ACR*02
+GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCC
+ATCTCCTGCAGGTCTAGTCAGAGCCTCTTGGATAGTGACGGGTACACCTGTTTGGACTGG
+TACCTGCAGAAGCCAGGCCAGTCTCCACAGCTCCTGATCTATGAGGTTTCCAACCGGGTC
+TCTGGAGTCCCTGACAGGTTCAGTGGCAGTGGGTCAGNCACTGATTTCACACTGAAAATC
+AGCCGGGTGGAAGCTGAGGATGTTGGGGTGTATTACTGTATGCAAAGTATAGAGTTTCCT
+CC
+"""
+        self.assertEqual(
+            self.post.call_args.kwargs,
+            {"data": config_used})
+        self.assertEqual(
+            list(result.keys()),
+            ["Parameters.txt", "vquest_airr.tsv"])
+        with open(self.path / "expected/Parameters.txt") as f_in:
+            parameters = f_in.read()
+        with open(self.path / "expected/vquest_airr.tsv") as f_in:
+            vquest_airr = f_in.read()
+        self.assertEqual(parameters, result["Parameters.txt"])
+        self.assertEqual(vquest_airr, result["vquest_airr.tsv"])
+
+    def test_vquest_no_collapse(self):
+        """test_vquest but with vquest(..., collapse=False)."""
+        # Also try with collapse=False, for raw output
+        result = vquest(self.config, collapse=False)
+        self.assertEqual(self.post.call_count, 1)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(
+            list(result[0].keys()),
+            ["Parameters.txt", "vquest_airr.tsv"])
+
+    def test_vquest_main(self):
+        """Test that the command-line interface gives the expected response."""
+        with tempfile.TemporaryDirectory() as tempdir:
+            os.chdir(tempdir)
+            with open(self.path / "config.yml") as f_in, open("config.yml", "wt") as f_out:
+                f_out.write(f_in.read())
+                f_out.write(f"fileSequences: {self.input_path}\n")
+            main(["config.yml"])
+            self.assertTrue(Path("vquest_airr.tsv").exists())
+            self.assertTrue(Path("Parameters.txt").exists())
+
+    def test_vquest_main_no_collapse(self):
+        """Test command-line interface with --no-collapse."""
+        with tempfile.TemporaryDirectory() as tempdir:
+            os.chdir(tempdir)
+            with open(self.path / "config.yml") as f_in, open("config.yml", "wt") as f_out:
+                f_out.write(f_in.read())
+                f_out.write(f"fileSequences: {self.input_path}\n")
+            main(["--no-collapse", "config.yml"])
+            self.assertTrue(Path("001/vquest_airr.tsv").exists())
+            self.assertTrue(Path("001/Parameters.txt").exists())
+
+    def test_vquest_main_alignment(self):
+        """Try using the --align feature.
+
+        In this case the regular output files should not be created and instead
+        FASTA text should be written to stdout.
+        """
+        expected = """>IGKV2-ACR*02
+gacattgtgatgacccagactccactctccctgcccgtcacccctggagagccagcctccatctcctgcaggtctagtcagagcctcttggatagt...gacgggtacacctgtttggactggtacctgcagaagccaggccagtctccacagctcctgatctatgaggtt.....................tccaaccgggtctctggagtccct...gacaggttcagtggcagtggg......tcagncactgatttcacactgaaaatcagccgggtggaagctgaggatgttggggtgtattactgtatgcaaagtatagagtttcctcc
+"""
+        out = StringIO()
+        err = StringIO()
+        with redirect_stdout(out), redirect_stderr(err):
+            with tempfile.TemporaryDirectory() as tempdir:
+                os.chdir(tempdir)
+                with open(self.path / "config.yml") as f_in, open("config.yml", "wt") as f_out:
+                    f_out.write(f_in.read())
+                    f_out.write(f"fileSequences: {self.input_path}\n")
+                main(["config.yml", "--align"])
+                self.assertFalse(Path("vquest_airr.tsv").exists())
+                self.assertFalse(Path("Parameters.txt").exists())
+        self.assertEqual(out.getvalue(), expected)
+        self.assertEqual(err.getvalue(), "")
+
+
+class TestVquestFastq(TestVquestFasta):
+    """File-based input with FASTQ."""
+
+    def setUp(self):
+        super().setUp()
+        self.input_path = self.path/"seqs.fastq"
+        self.config["fileSequences"] = self.input_path
+
+
 class TestVquestCustom(TestVquestSimple):
     """Try changing one of the configuration options.
 
@@ -274,7 +382,7 @@ class TestVquestInvalid(TestVquestBase):
         self.assertEqual(self.post.call_count, 1)
         self.assertEqual(
             self.post.call_args.args,
-            ('http://www.imgt.org/IMGT_vquest/analysis', ))
+            ('https://www.imgt.org/IMGT_vquest/analysis', ))
 
     def test_vquest_main(self):
         """Test that an html file with an error message is parsed correctly for cmd-line usage."""
