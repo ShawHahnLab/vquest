@@ -1,6 +1,6 @@
 # Automate IMGT V-QUEST usage on imgt.org
 
-[![vquest](https://circleci.com/gh/ressy/vquest.svg?style=shield)](https://circleci.com/gh/ressy/vquest)
+[![vquest](https://circleci.com/gh/ShawHahnLab/vquest.svg?style=shield)](https://circleci.com/gh/ShawHahnLab/vquest)
 
 [IMGT](http://imgt.org)'s [V-QUEST](http://www.imgt.org/IMGT_vquest/analysis)
 is only available via a web interface.  This Python package automates V-QUEST
@@ -23,7 +23,7 @@ Here the aligned FASTA text is printed directly to standard output.
 
 Example Python usage:
 
-    >>> from vquest import *
+    >>> from vquest.vq import *
     >>> config = layer_configs(DEFAULTS, {"species": "rhesus-monkey", "receptorOrLocusType": "IG", "fileSequences": "seqs.fasta"})
     >>> result = vquest(config)
     >>> result.keys()

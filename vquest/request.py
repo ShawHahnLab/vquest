@@ -94,4 +94,8 @@ def _collapse_outputs(outputs):
         else:
             airr = output_chunk["vquest_airr.tsv"].decode()
             output["vquest_airr.tsv"] += "\n".join(airr.splitlines()[1:])
+        # I've seen cases where there may or may not be a final newline, so
+        # let's make sure there always is
+        if not output["vquest_airr.tsv"].endswith("\n"):
+            output["vquest_airr.tsv"] += "\n"
     return output

@@ -2,10 +2,16 @@
 
 ## dev
 
+### Changed
+
+ * Repository now at <https://github.com/ShawHahnLab/vquest> ([#36])
+
 ### Fixed
 
+ * Usage example now matches packaged structure ([#36])
  * Requests to the IMGT server now use HTTPS ([#34])
 
+[#36]: https://github.com/ShawHahnLab/vquest/pull/36
 [#34]: https://github.com/ressy/vquest/pull/34
 
 ## 0.0.9 - 2021-07-20
