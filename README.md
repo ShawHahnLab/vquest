@@ -1,6 +1,13 @@
 # Automate IMGT V-QUEST usage on imgt.org
 
+----
+
+⚠️ **NOTE: As of May 2026 this tool is not working with the latest IMGT V-QUEST service.**  An update may be able to fix this, but I don't have an ETA yet.
+
+----
+<!--
 [![vquest](https://circleci.com/gh/ShawHahnLab/vquest.svg?style=shield)](https://circleci.com/gh/ShawHahnLab/vquest)
+-->
 
 [IMGT](http://imgt.org)'s [V-QUEST](http://www.imgt.org/IMGT_vquest/analysis)
 is only available via a web interface.  This Python package automates V-QUEST
