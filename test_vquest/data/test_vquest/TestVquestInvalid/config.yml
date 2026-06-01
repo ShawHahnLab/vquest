@@ -1,5 +1,6 @@
 species: rhesus-monkey
 receptorOrLocusType: antibody # not valid!
+moleculeType: Unknown
 sequences: |
   >IGKV2-ACR*02
   GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA

@@ -73,6 +73,12 @@
       - teleostei
       - dolphin
       - alpaca
+    moleculeType:
+      description: Type of molecule analyzed
+      values:
+      - cDNA
+      - gDNA
+      - Unknown
     inputType:
       description: either "inline" or "file"
       values:

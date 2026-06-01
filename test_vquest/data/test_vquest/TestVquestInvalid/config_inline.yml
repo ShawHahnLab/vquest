@@ -2,6 +2,7 @@ species: rhesus-monkey
 receptorOrLocusType: antibody # not valid!
 resultType: excel
 xv_outputtype: 3
+moleculeType: Unknown
 sequences: |
   >IGKV2-ACR*02
   GACATTGTGATGACCCAGACTCCACTCTCCCTGCCCGTCACCCCTGGAGAGCCAGCCTCCATCTCCTGCAGGTCTAGTCA
