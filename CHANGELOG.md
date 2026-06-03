@@ -1,5 +1,11 @@
 # Changelog
 
+## dev
+
+ * Added `moleculeType` parameter to match V-QUEST 3.8.0 ([#40])
+
+[#40]: https://github.com/ShawHahnLab/vquest/pull/40
+
 ## 0.0.10 - 2022-10-11
 
 ### Added
