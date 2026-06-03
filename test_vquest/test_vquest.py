@@ -130,12 +130,9 @@ CC
             {"data": config_used})
         self.assertEqual(
             list(result.keys()),
-            ["Parameters.txt", "vquest_airr.tsv"])
-        with open(self.path / "expected/Parameters.txt") as f_in:
-            parameters = f_in.read()
+            ["vquest_airr.tsv"])
         with open(self.path / "expected/vquest_airr.tsv") as f_in:
             vquest_airr = f_in.read()
-        self.assertEqual(parameters, result["Parameters.txt"])
         self.assertEqual(vquest_airr, result["vquest_airr.tsv"])
 
     def test_vquest_no_collapse(self):
@@ -146,7 +143,7 @@ CC
         self.assertEqual(len(result), 1)
         self.assertEqual(
             list(result[0].keys()),
-            ["Parameters.txt", "vquest_airr.tsv"])
+            ["vquest_airr.tsv"])
 
     def test_vquest_main(self):
         """Test that the command-line interface gives the expected response."""
@@ -154,7 +151,6 @@ CC
             os.chdir(tempdir)
             main([str(self.path / "config.yml")])
             self.assertTrue(Path("vquest_airr.tsv").exists())
-            self.assertTrue(Path("Parameters.txt").exists())
 
     def test_vquest_main_no_collapse(self):
         """Test command-line interface with --no-collapse."""
@@ -162,7 +158,6 @@ CC
             os.chdir(tempdir)
             main(["--no-collapse", str(self.path / "config.yml")])
             self.assertTrue(Path("001/vquest_airr.tsv").exists())
-            self.assertTrue(Path("001/Parameters.txt").exists())
 
     def test_vquest_main_alignment(self):
         """Try using the --align feature.
@@ -271,12 +266,9 @@ CC
             {"data": config_used})
         self.assertEqual(
             list(result.keys()),
-            ["Parameters.txt", "vquest_airr.tsv"])
-        with open(self.path / "expected/Parameters.txt") as f_in:
-            parameters = f_in.read()
+            ["vquest_airr.tsv"])
         with open(self.path / "expected/vquest_airr.tsv") as f_in:
             vquest_airr = f_in.read()
-        self.assertEqual(parameters, result["Parameters.txt"])
         self.assertEqual(vquest_airr, result["vquest_airr.tsv"])
 
     def test_vquest_no_collapse(self):
@@ -287,7 +279,7 @@ CC
         self.assertEqual(len(result), 1)
         self.assertEqual(
             list(result[0].keys()),
-            ["Parameters.txt", "vquest_airr.tsv"])
+            ["vquest_airr.tsv"])
 
     def test_vquest_main(self):
         """Test that the command-line interface gives the expected response."""
@@ -298,7 +290,6 @@ CC
                 f_out.write(f"fileSequences: {self.input_path}\n")
             main(["config.yml"])
             self.assertTrue(Path("vquest_airr.tsv").exists())
-            self.assertTrue(Path("Parameters.txt").exists())
 
     def test_vquest_main_no_collapse(self):
         """Test command-line interface with --no-collapse."""
@@ -309,7 +300,6 @@ CC
                 f_out.write(f"fileSequences: {self.input_path}\n")
             main(["--no-collapse", "config.yml"])
             self.assertTrue(Path("001/vquest_airr.tsv").exists())
-            self.assertTrue(Path("001/Parameters.txt").exists())
 
     def test_vquest_main_alignment(self):
         """Try using the --align feature.
@@ -362,7 +352,6 @@ class TestVquestCustom(TestVquestSimple):
             os.chdir(tempdir)
             main(["--IMGTrefdirSet", "1", str(self.path / "config.yml")])
             self.assertTrue(Path("vquest_airr.tsv").exists())
-            self.assertTrue(Path("Parameters.txt").exists())
 
 
 class TestVquestInvalid(TestVquestBase):
