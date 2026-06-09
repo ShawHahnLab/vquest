@@ -71,6 +71,9 @@ def vquest(config, collapse=True):
             "and/or sequences are required options")
     supported = [("resultType", "excel"), ("xv_outputtype", 3)]
     if all([config.get(pair[0]) == pair[1] for pair in supported]):
+        # Default moleculeType to Unknown if not set (required by V-QUEST 3.8.0+)
+        if "moleculeType" not in config:
+            config = {**config, "moleculeType": "Unknown"}
         outputs = []
         records = _parse_records(config)
         if not records:
