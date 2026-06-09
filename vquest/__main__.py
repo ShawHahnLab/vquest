@@ -76,8 +76,7 @@ def __process_output(args, output):
                 for key in chunk:
                     output_path = args.outdir / chunkdir / key
                     LOGGER.info("Writing %s", output_path)
-                    mode = "wb" if isinstance(chunk[key], bytes) else "wt"
-                    with open(output_path, mode) as f_out:
+                    with open(output_path, "wb") as f_out:
                         f_out.write(chunk[key])
 
 def __setup_arg_parser():

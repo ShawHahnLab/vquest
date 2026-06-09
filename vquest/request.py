@@ -47,17 +47,6 @@ def _parse_records(config):
             records.extend(list(SeqIO.parse(f_in, fmt)))
     return records
 
-def _parse_response(content):
-    """Parse V-QUEST response content.
-
-    Handles both the zip format (V-QUEST < 3.8.0, where xv_outputtype=3
-    returned a zip archive) and the plain TSV format (V-QUEST 3.8.0+, where
-    the same option returns the AIRR TSV directly).
-    """
-    if content[:2] == b"PK":  # ZIP magic bytes
-        return unzip(content)
-    return {"vquest_airr.tsv": content.decode("utf-8")}
-
 def vquest(config, collapse=True):
     """Submit a request to V-QUEST.
 
@@ -71,7 +60,7 @@ def vquest(config, collapse=True):
     as though they were submitted and processed as a single request, and a
     dictionary of file names to text contents is returned.  If collapse is
     False, a list of dictionaries is returned, one for each batch, storing raw
-    byte contents (zip format) or text strings (plain TSV format).
+    byte contents.
     """
     if not all([
         config.get("species"),
@@ -82,9 +71,6 @@ def vquest(config, collapse=True):
             "and/or sequences are required options")
     supported = [("resultType", "excel"), ("xv_outputtype", 3)]
     if all([config.get(pair[0]) == pair[1] for pair in supported]):
-        # Default moleculeType to Unknown if not set (required by V-QUEST 3.8.0+)
-        if "moleculeType" not in config:
-            config = {**config, "moleculeType": "Unknown"}
         outputs = []
         records = _parse_records(config)
         if not records:
@@ -107,7 +93,7 @@ def vquest(config, collapse=True):
                 errors = [div.text for div in html.find("div.form_error")]
                 if errors:
                     raise VquestError("; ".join(errors), errors)
-            outputs.append(_parse_response(response.content))
+            outputs.append(unzip(response.content))
         if not collapse:
             return outputs
         return _collapse_outputs(outputs)
@@ -119,19 +105,17 @@ def _collapse_outputs(outputs):
     """Combine batched output dictionaries into one."""
     output = {}
     for output_chunk in outputs:
-        # Parameters.txt is only present in the old zip format; keep one copy if available
-        if "Parameters.txt" in output_chunk and "Parameters.txt" not in output:
-            data = output_chunk["Parameters.txt"]
-            output["Parameters.txt"] = data.decode() if isinstance(data, bytes) else data
-        # Append AIRR TSV rows together (skip header on subsequent batches)
+        # Only keep one copy of the Parameters.txt data, but append rows
+        # (minus header) of vquest_airr.tsv together
+        if "Parameters.txt" not in output:
+            output["Parameters.txt"] = output_chunk["Parameters.txt"].decode()
         if "vquest_airr.tsv" not in output:
-            data = output_chunk["vquest_airr.tsv"]
-            output["vquest_airr.tsv"] = data.decode() if isinstance(data, bytes) else data
+            output["vquest_airr.tsv"] = output_chunk["vquest_airr.tsv"].decode()
         else:
-            data = output_chunk["vquest_airr.tsv"]
-            airr = data.decode() if isinstance(data, bytes) else data
+            airr = output_chunk["vquest_airr.tsv"].decode()
             output["vquest_airr.tsv"] += "\n".join(airr.splitlines()[1:])
-        # Ensure trailing newline
+        # I've seen cases where there may or may not be a final newline, so
+        # let's make sure there always is
         if not output["vquest_airr.tsv"].endswith("\n"):
             output["vquest_airr.tsv"] += "\n"
     return output
