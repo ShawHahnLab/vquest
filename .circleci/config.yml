@@ -8,12 +8,13 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache
       - python/install-deps
+      - run:
+          command: pip install .
+          name: pip install
       - run:
           command: python3 -m pip install --upgrade build
           name: Install PyPA's build tool
-      - python/save-cache
       - run:
           command: python -m unittest
           name: Test
