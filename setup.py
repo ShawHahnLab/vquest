@@ -22,6 +22,9 @@ setuptools.setup(
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
-    install_requires=["biopython", "PyYAML", "requests", "requests-html"],
+    # (requests-html requires a module from lxml that is now packaged
+    # separately, as lxml-html-clean, but evidently requests-html doesn't yet
+    # list that other package as a requirement)
+    install_requires=["biopython", "PyYAML", "requests", "requests-html", "lxml-html-clean"],
     python_requires='>=3.6',
 )
