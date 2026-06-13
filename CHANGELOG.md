@@ -1,6 +1,6 @@
 # Changelog
 
-## dev
+## 0.0.11 - 2026-06-13
 
  * Added `moleculeType` parameter to match V-QUEST 3.8.0 ([#40])
 
